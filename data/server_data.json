@@ -1,0 +1,137 @@
+{
+    "1039929563309932575": {
+        "Economy": {
+            "economy": true
+        },
+        "HQ": {
+            "name": "Noah Azrael's Hellscape",
+            "owner": "noahazrael"
+        },
+        "Reactions": {
+            "blacklist": [],
+            "botreactions": false,
+            "reactions": false,
+            "roleblacklist": []
+        }
+    },
+    "540987349610528768": {
+        "Economy": {
+            "economy": true
+        },
+        "HQ": {
+            "name": "Aiden Colonno: Battle Royale",
+            "owner": "reignh"
+        },
+        "Reactions": {
+            "blacklist": [],
+            "botreactions": false,
+            "reactions": true,
+            "roleblacklist": []
+        }
+    },
+    "759875308756795444": {
+        "Economy": {
+            "economy": true
+        },
+        "HQ": {
+            "name": "among us!",
+            "owner": "bee buzz"
+        },
+        "Reactions": {
+            "blacklist": [],
+            "botreactions": false,
+            "reactions": true,
+            "roleblacklist": []
+        }
+    },
+    "763550505469083650": {
+        "Economy": {
+            "economy": true
+        },
+        "HQ": {
+            "name": "Humble Indian Mafia (HIM)",
+            "owner": ".blazingblitz"
+        },
+        "Reactions": {
+            "blacklist": [],
+            "botreactions": false,
+            "reactions": true,
+            "roleblacklist": []
+        }
+    },
+    "779964363854839818": {
+        "Economy": {
+            "economy": true
+        },
+        "HQ": {
+            "name": "Coke heads",
+            "owner": "Ren"
+        },
+        "Reactions": {
+            "blacklist": [],
+            "botreactions": false,
+            "reactions": true,
+            "roleblacklist": []
+        }
+    },
+    "798390128430809088": {
+        "Economy": {
+            "economy": true
+        },
+        "HQ": {
+            "name": "GuacBot Workshop",
+            "owner": "guacamolefather"
+        },
+        "Reactions": {
+            "blacklist": [],
+            "botreactions": false,
+            "reactions": true,
+            "roleblacklist": []
+        }
+    },
+    "803102098085380146": {
+        "Economy": {
+            "economy": true
+        },
+        "HQ": {
+            "name": "minecraft \u2661",
+            "owner": "hallelujahpancakes"
+        },
+        "Reactions": {
+            "blacklist": [],
+            "botreactions": false,
+            "reactions": true,
+            "roleblacklist": []
+        }
+    },
+    "827776738750103553": {
+        "Economy": {
+            "economy": true
+        },
+        "HQ": {
+            "name": "Kangaroos in western indiana",
+            "owner": "guacamolefather"
+        },
+        "Reactions": {
+            "blacklist": [],
+            "botreactions": false,
+            "reactions": true,
+            "roleblacklist": []
+        }
+    },
+    "844456658314067979": {
+        "Economy": {
+            "economy": true
+        },
+        "HQ": {
+            "name": "cum special",
+            "owner": "hallelujahpancakes"
+        },
+        "Reactions": {
+            "blacklist": [],
+            "botreactions": false,
+            "reactions": true,
+            "roleblacklist": []
+        }
+    }
+}

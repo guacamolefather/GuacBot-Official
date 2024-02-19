@@ -1,0 +1,44 @@
+- 02/09/2024: GuacBot5.0.0
+Gutting GuacBot to rebuild with OpenAI. Got rid of economy (minus json handling), NLP/txt reaction, and music related code.
+
+- 02/10/2024: GuacBot5.1.0
+Added AI chatbot functionality with JanAI API (GUAC IS A REAL BOY NOW). Switched reaction cog to use json files for data to make it easier to add, remove, and parse reaction triggers. Added triggerCounter to reaction cog to watch for an ne'er-do-wells (Fuck Daniel... was that his name?). Figured out weird typing thing where Guac would show to be typing even after sending his message
+    
+- 02/10/2024: GuacBot5.2.0
+Gutted GuacBot of deprecated commands that no longer serve a purpose, given new Discord functionality. Switched "bridge" hybrid commands to slash commands for non-owner users, completely phasing out the prefix days. Added "version" command to show what version of GuacBot we are on. Other starting miscellaneous changes (such as comments) to code for clarity's sake.
+
+- 02/10/2024: GuacBot5.2.1 (a bug fix update)
+Fixed "$help" command to reflect intentions of last update (and invite command, which I accidentally left as a bridge command). This command now updates the version automatically based on the patch type.
+
+- 02/12/2024: GuacBot5.3.0 (a minor update)
+Fixed minor error in this command. Updated more information to reflect intentions with switch to slash commands as well as a few permission bug fixes to those commands (permission handling with slash commands is different). Another considerable chunk of commenting code (HQ and utility cogs) with minor fixes to error handling and the /profile command along the way. Guac now tells me when servers are joined/left.
+
+- 02/12/2024: GuacBot5.3.1 (a AI tuning update)
+Changed some of Guac's intructions for AI interactions to fix some common hiccups he has. He now knows the name of who he's talking to and that I am his creator (but I cannot figure out how to stop him from thinking I am everything's creator).
+
+- 02/12/2024: GuacBot5.3.2 (an autism induced grammar update)
+I didn't like that the patch said "a AI tuning update" when it should have said "an AI tuning update"
+
+- 02/13/2024: GuacBot5.4.0 (a minor update)
+Made an experimental function that allows GuacBot to build his memory (may or may not be temporary) for science! His brain (just message memory) is stored in a separate json file so if anything goes wrong, it doesn't fuck up anything important. He will default to the original function if the experimental one fails.
+
+- 02/13/2024: GuacBot5.4.1 (a tiny memory plant update)
+Just added a couple memories to Guac to hopefully clear up his confusion with his creator...
+
+- 02/13/2024: GuacBot5.4.2 (a dementia update)
+Gave back GuacBot his dementia but reversed time on it a bit so he can remember the previous 5 interactions (5 user messages and his 5 responses to those messages)
+
+- 02/13/2024: GuacBot5.4.3 (a Sophie update)
+I mean, she is pretty much Guac's auntie now...
+
+- 02/13/2024: GuacBot5.4.4 (a Sophie v2 update)
+I made an oopsie and fixed it...
+
+- 02/18/2024: GuacBot5.5.0 (a minor update)
+Added SalsAI personality to GuacBot's code? Not entirely sure how meaningful of an addition this will be, but the future may hold a possibility of running multiple models with different personalities, but for now, Guac just has DID.
+
+- 02/19/2024: GuacBot5.6.0 (a minor update)
+Implemented SalsAI and GuacBot as two separate profiles within the memory json. Tried to let them interact with eachother with a collective memory, but it just mixed their personalities too much (getting rid of the point of two personalities), so they have individual memory now. Properly set up prioritization if Guac and Salsa are both prompted in a single message. Fixed the non-AI reactions (no more jazz from "been" or "beer") and added commentary through the Reaction cog. Tiny fix to /profile command to show out of how many channels one has access to.
+
+- 02/19/2024: GuacBot6.0.0 (a major (official GuacBot time) update)
+Finished gutting out depracated (or otherwise redundant) functionality and fixing + commenting on what remained. Permissions fixed for all applicable commands. Took token out of code so that I can make the GuacBot repository public. Edited what server data is collected for moderation purposes (far less required), given slash command integration changes. Other small changes I can't remember, but are definitely important.
