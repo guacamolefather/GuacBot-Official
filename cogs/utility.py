@@ -81,7 +81,7 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
     @commands.slash_command(description="Returns server data on the user.") # Slash command for returning server data on the user
     async def profile(self, ctx):
         member = ctx.author
-        embed = discord.Embed(title=str(member), description="Member data:", colour=member.top_role.color, url="https://www.youtube.com/watch?v=iik25wqIuFo")
+        embed = discord.Embed(title=str(member), description="Member data:", colour=member.top_role.color, url="https://github.com/guacamolefather?tab=repositories")
         embed.set_thumbnail(url=member.avatar.url)
         
         # Member's ID:

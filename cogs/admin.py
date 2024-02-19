@@ -79,7 +79,7 @@ class Admin(commands.Cog):
 
     @commands.slash_command(description="Returns server data on the user.") # Slash command for returning server data on the user
     async def adminprofile(self, ctx, member: discord.Member):
-        embed = discord.Embed(title=str(member), description="Member data:", colour=member.top_role.color, url="https://www.youtube.com/watch?v=iik25wqIuFo")
+        embed = discord.Embed(title=str(member), description="Member data:", colour=member.top_role.color, url="https://github.com/guacamolefather?tab=repositories")
         embed.set_thumbnail(url=member.avatar.url)
         
         # Member's ID:
