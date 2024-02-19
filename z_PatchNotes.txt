@@ -42,3 +42,6 @@ Implemented SalsAI and GuacBot as two separate profiles within the memory json. 
 
 - 02/19/2024: GuacBot6.0.0 (a major (official GuacBot time) update)
 Finished gutting out depracated (or otherwise redundant) functionality and fixing + commenting on what remained. Permissions fixed for all applicable commands. Took token out of code so that I can make the GuacBot repository public. Edited what server data is collected for moderation purposes (far less required), given slash command integration changes. Other small changes I can't remember, but are definitely important.
+
+- 02/19/2024: GuacBot6.0.1 (a triggers update)
+Added two new triggers according to the to-do list.
