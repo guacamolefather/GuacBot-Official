@@ -1,6 +1,6 @@
 @echo off
 
-cd "E:\GitHub\GuacBot"
+cd "E:\GitHub\GuacBot-Official"
 
 GuacBotHQ.py
 
