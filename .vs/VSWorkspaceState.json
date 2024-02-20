@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\cogs",
+    "\\cogs\\extraclasses",
     "\\data",
     "\\GuacStart"
   ],
-  "SelectedNode": "\\data\\speech_data.json",
+  "SelectedNode": "\\cogs\\owner.py",
   "PreviewInSolutionExplorer": false
 }

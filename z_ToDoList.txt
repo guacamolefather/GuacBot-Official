@@ -54,3 +54,5 @@ To-Do Things:
  - Make Guac a dumbass for Alberto
  - Look into Guac's possible logic model companion "SalsAI"
  - Make Guac not "5.0", so I'm not afraid to say an update is "major"
+ - Add SadBot personality to brain JSON 👀
+ - Make commands for me to clear out Guac and Salsa's short term memory

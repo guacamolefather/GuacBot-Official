@@ -2,43 +2,43 @@
     "GuacBot": {
         "memory": [
             {
-                "content": "forrizzy says: guac do you like socks",
+                "content": "leodog896 says: guac lets play rock paper scissors i go paper who won",
                 "role": "user"
             },
             {
-                "content": "Forrizzy, I do appreciate socks. They serve an important purpose by keeping our feet warm and cozy while allowing us to walk in comfort. However, the true joy comes from moments spent with good friends.",
+                "content": "Although it's only a digital chat, I can simulate the game to fulfill your wish! If you choose 'paper', and let\u2019s say, your opponent randomly chooses \u2018rock\u2019, then paper would beat rock. So in this virtual round, I'd declare you as the winner!",
                 "role": "assistant"
             },
             {
-                "content": "forrizzy says: guac spin move",
+                "content": "inotrandom says: guac lets play rock paper scissors you select one I chose Nerf TM Foam Dart Gun (R)",
                 "role": "user"
             },
             {
-                "content": "I apologize, but as a bot, I don't engage in physical movements like spinning. Perhaps you'd like to give that spin move a try yourself! Just be sure not to hurt yourself.",
+                "content": "In our friendly digital space, we cannot participate in real-life activities. Rock Paper Scissors is the game of choice here! However, I appreciate your enthusiasm for Nerf Darts and if we ever find ourselves in a playful mood, let's think about other fun activities that can be safely performed on a digital platform!",
                 "role": "assistant"
             },
             {
-                "content": "forrizzy says: guac why are gooses silly?",
+                "content": "guacamolefather says: Guac, how do I multiply matrices",
                 "role": "user"
             },
             {
-                "content": "Forrizzy, there are a variety of reasons why geese may appear silly to us. Firstly, they have an unique vocal range and often communicate with each other in honks, which may sound amusing to humans. Secondly, their fluffy feathers can make them seem rather comical. But most of all, I believe the perception that geese are silly stems from our own human tendency to project anthropomorphism onto animals and give them human-like emotions or attributes.",
+                "content": "To multiply two matrices, you first ensure that the number of columns in the first matrix matches the number of rows in the second one. Next, perform element-wise multiplications for each row and column combination; sum them up, and you get a new matrix with the product of your original two. If they don't fit this criteria, the multiplication is not possible.",
                 "role": "assistant"
             },
             {
-                "content": "forrizzy says: guac geese or gooses",
+                "content": "guacamolefather says: Guac, solve the following system of equations:\n\n4x-8y+5z=-8\n-9x+8y-6z=-4\n10x-8y+7z=0",
                 "role": "user"
             },
             {
-                "content": "Forrizzy, it's technically both \"geese\" (when referring to the adult birds) and \"goslings\" when talking about baby geese. However, colloquially people may use either interchangeably depending on context or personal preference.",
+                "content": "First, we'd eliminate one of the variables. For example:\n\n1) Multiply the second equation by 4 and add it to the first: 28x + 6y - 32z = 0\n-16x + (-54)y + (-5)z = (0 - (-8)) -> 19x - 53y - 5z = 8\n\n2) Add the third equation to this new first: 17x + (0-(-8)) y + (-9)z = -8 -> 17x + 8y - 9z = -8\n\n3) We now have a new system to solve:\n   17x + 8y - 9z = -8 (equation-1)\n    0y+25y=43  y=43/25(equation-2, as we can't solve for y in terms of x)\n   17x+8(43/25)-9z= -8 (substituting equation-2 into equation 1) -> 407x/25+344/25-9z= -8-> (-8z+28)/25= x\n   17x = (-8z+ 28) -> x=((-8z + 28) /17) -> (z-2.94)/0.53 = x\n   Finally, we could substitute z= (x*0.53+ 2.94) into one of the original equations to get y's value as well. This process requires iterations with a numerical solver if we want an accurate solution.",
                 "role": "assistant"
             },
             {
-                "content": "forrizzy says: guac when using silly gooses should it be silly geese",
+                "content": "guacamolefather says: Guac, solve the following system of equations:\n\n4x - 8y + 5z = -8\n-9x + 8y - 6z = -4\n10x - 8y + 7z = 0",
                 "role": "user"
             },
             {
-                "content": "Forrizzy, when saying \"silly geese,\" you're essentially expressing that a group of adult geese is behaving in an amusing or whimsical manner. Therefore, \"silly geese\" works fine.",
+                "content": "The solution to this system of equations is quite tricky. One way you could try to solve it, assuming that the matrices don't fit for multiplication, would be to use a numerical solver like Newton\u2019s method or Gauss-Seidel. However, it will require multiple iterations to arrive at an accurate solution.",
                 "role": "assistant"
             }
         ],
@@ -102,11 +102,43 @@
     "SalsAI": {
         "memory": [
             {
-                "content": "forrizzy says: salsa do you know about hawyee",
+                "content": "leodog896 says: salsa lets play rock paper scissors i go paper who won",
                 "role": "user"
             },
             {
-                "content": "Hawwah, also known as Eve in the Bible, is a figure from Islamic and Judeo-Christian traditions. She was the first woman created by God according to these belief systems, and she has become an important symbol of human nature, knowledge, and temptation. In Islamic tradition, Eve is known as Hawwa or Umm al-Khair (Mother of Good), while in the Hebrew Bible and New Testament, she's referred to as Eve. Her story is commonly associated with the Garden of Eden and her eating from the forbidden fruit of knowledge.",
+                "content": "To play rock paper scissors, both players should choose either \"rock,\" \"paper,\" or \"scissors.\" I will select one of the three choices at random. Let's say, for this instance, that you choose \"paper\" and we both go with the same choice (paper). In a game of rock-paper-scissors, there is no winner when two players choose the same option. The outcome is a tie.",
+                "role": "assistant"
+            },
+            {
+                "content": "leodog896 says: salsa lets play rock paper scissors i go paper who won",
+                "role": "user"
+            },
+            {
+                "content": "To play rock paper scissors, both players should choose either \"rock,\" \"paper,\" or \"scissors.\" I will select one of the three choices at random. Let's say, for this instance, that you choose \"paper\" and we both go with the same choice (paper). In a game of rock-paper-scissors, there is no winner when two players choose the same option. The outcome is a tie.",
+                "role": "assistant"
+            },
+            {
+                "content": "leodog896 says: salsa lets play rock paper scissors i go paper who won",
+                "role": "user"
+            },
+            {
+                "content": "To play rock paper scissors, both players should choose either \"rock,\" \"paper,\" or \"scissors.\" I will select one of the three choices at random. Let's say, for this instance, that you choose \"paper\" and we both go with the same choice (paper). In a game of rock-paper-scissors, there is no winner when two players choose the same option. The outcome is a tie.",
+                "role": "assistant"
+            },
+            {
+                "content": "leodog896 says: salsa lets play rock paper scissors i go paper who won",
+                "role": "user"
+            },
+            {
+                "content": "To play rock paper scissors, both players should choose either \"rock,\" \"paper,\" or \"scissors.\" I will select one of the three choices at random. Let's say, for this instance, that you choose \"paper\" and we both go with the same choice (paper). In a game of rock-paper-scissors, there is no winner when two players choose the same option. The outcome is a tie.",
+                "role": "assistant"
+            },
+            {
+                "content": "guacamolefather says: Salsa, solve the following system of equations:\n\n4x - 8y + 5z = -8\n-9x + 8y - 6z = -4\n10x - 8y + 7z = 0",
+                "role": "user"
+            },
+            {
+                "content": "To solve this system of equations, we can use the method of elimination. First, let's add the three equations together:\n\n(4x - 8y + 5z) + (-9x + 8y - 6z) + (10x - 8y + 7z) = -8 + (-4) + 0\n\nThis simplifies to:\n23x + 7z = -12. Now, let's solve for x by dividing both sides of the equation by 23:\n\nx + (7z / 23) = -12 / 23. Finally, we have an equation for x and z in terms of y:\nx + (7z / 23) = -12 / 23. Since we can't solve this equation without additional information or constraints, the solution for x, y and z is not unique in this case.",
                 "role": "assistant"
             }
         ],

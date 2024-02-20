@@ -96,10 +96,10 @@ class Owner(commands.Cog): # Commands just for me :)
     @bridge.bridge_command(description="Locates the member based on their ID.") # Bridge command for locating a member based on their ID")
     @commands.check(is_it_me) # Only dad can use this command
     @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def locateid(self, ctx, member_id: int):
+    async def locateid(self, ctx, member_id):
         member = None
         try:
-            member = await self.bot.fetch_user(member_id)
+            member = await self.bot.fetch_user(int(member_id))
         except:
             pass
         
@@ -161,7 +161,7 @@ class Owner(commands.Cog): # Commands just for me :)
     @commands.check(is_it_me)
     @discord.default_permissions(administrator=True) # So most people can't see this command at all
     async def nickname(self, ctx, *, name: str):
-        with open('z_Nicknames.txt', 'a', encoding='utf-8') as writer:
+        with open('E:/z_Nicknames.txt', 'a', encoding='utf-8') as writer:
             writer.write(f"\n- {name}")
         writer.close()
         
