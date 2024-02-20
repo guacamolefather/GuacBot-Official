@@ -51,3 +51,6 @@ Fixed a personal command that had a file location switch and another personal co
 
 - 02/20/2024: GuacBot6.1.0 (a minor (catching up) update)
 Moved the character limit function to a shared module instead of just reaction cog so it can be used all throughout GuacBot. Added command to wipe Guac or Salsa's short-term memory. Revamped todo command and added a command to fetch it without adding anything to it (both update my txt file appropriately now). Added whitelist for GuacBot AI functionality. Profile command now shows ban status (and what banned you). "Fixed" my cog (un/re)loading commands.
+
+- 02/20/2024: GuacBot6.1.1 (a /adminprofile update)
+I forgor to update /adminprofile with the /profile addition...

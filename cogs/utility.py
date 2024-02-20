@@ -3,6 +3,8 @@ from cogs.extraclasses.avocado import * # The infamous pineapple
 from discord.ext import commands, bridge
 import discord
 
+botData = FetchBotData()
+serverData = FetchServerData()
 
 class Utility(commands.Cog): # Commands for general utility purposes (usually stats or other info gathering stuff)
 
