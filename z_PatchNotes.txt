@@ -48,3 +48,6 @@ Added two new triggers according to the to-do list.
 
 - 02/19/2024: GuacBot6.0.2 (a semi colon update)
 Fixed a personal command that had a file location switch and another personal command that wouldn't work as a slash command because it DEMANDED an integer (everything is strings)
+
+- 02/20/2024: GuacBot6.1.0 (a minor (catching up) update)
+Moved the character limit function to a shared module instead of just reaction cog so it can be used all throughout GuacBot. Added command to wipe Guac or Salsa's short-term memory. Revamped todo command and added a command to fetch it without adding anything to it (both update my txt file appropriately now). Added whitelist for GuacBot AI functionality. Profile command now shows ban status (and what banned you). "Fixed" my cog (un/re)loading commands.

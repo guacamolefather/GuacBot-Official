@@ -39,18 +39,6 @@ def DIDAIMessage(message, sender, personality):
     
     return content
 
-def charLimit(reactionMessage): # Splits the message into 2000 character segments for Discord character limit
-    if (len(reactionMessage) > 2000):
-        substringList = []
-        loops = (int) (len(reactionMessage) / 2000)
-        x = 0
-        for i in range(loops + 1):
-            substringList.append(reactionMessage[x:x + 2000])
-            x = x + 2000
-        return substringList
-    else:
-        return [reactionMessage]
-
 botData = FetchBotData()
 serverData = FetchServerData()
 
@@ -73,7 +61,7 @@ class Reaction(commands.Cog):
             UpdateBotData(botData)
             await message.channel.send("Sorry, I'll be back in five...")
             return
-        
+
         if botData["Reactions"]["wait_until"] > time.time(): # If Guac was told to stop reacting temporarily
             return
         
@@ -96,10 +84,14 @@ class Reaction(commands.Cog):
             pass
         
         if self.bot.user.mentioned_in(message) and not message.mention_everyone and message.reference is None: # If Guac is mentioned in the message (but not in a reply or along with everyone)
-            await message.channel.send("Use my slash commands in a channel I can send messages in, use /invite to invite me to your own server, or use this link to join the support server: https://discord.gg/2kgZazXN68")
+            await message.channel.send("You can use my slash commands with necessary permissions, use /invite to invite me to your own server, or use this link to join the support server: https://discord.gg/2kgZazXN68")
             return
+        elif self.bot.user.mentioned_in(message) and not message.mention_everyone and message.reference is not None:
+            if message.author.id == 409445517509001216 and lowerMessage == "delete":
+                await message.reference.resolved.delete()
+                return
         
-        if "guac" in lowerMessage or "salsa" in lowerMessage: # If the message is addressed to GuacBot or SalsAI
+        if ("guac" in lowerMessage or "salsa" in lowerMessage) and str(message.guild.id) in botData["Reactions"]["server_whitelist"].keys(): # If the message is addressed to GuacBot or SalsAI and the server is AI whitelisted
             personality = ""
             
             if (lowerMessage.find("guac") != -1 and lowerMessage.find("guac") < lowerMessage.find("salsa")) or lowerMessage.find("salsa") == -1:

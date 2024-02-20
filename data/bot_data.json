@@ -98,9 +98,9 @@
                 "type": "stream"
             }
         ],
-        "start_time": 1708363322.8354115,
+        "start_time": 1708409506.2059646,
         "time_checked": 1670292480.8962822,
-        "version": "6.0.2"
+        "version": "6.1.0"
     },
     "Reactions": {
         "global_blacklist": {
@@ -112,6 +112,11 @@
             "995519778758340609": "jack_dorsey"
         },
         "server_blacklist": {},
+        "server_whitelist": {
+            "540987349610528768": "Aiden Colonno: Battle Royale",
+            "763550505469083650": "Humble Indian Mafia (HIM)",
+            "798390128430809088": "GuacBot Workshop"
+        },
         "wait_until": 1707637007.4549062
     }
 }

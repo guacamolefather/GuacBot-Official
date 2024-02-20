@@ -65,26 +65,51 @@ async def refreshserverdata(ctx):
 @commands.check(is_it_me) # Only dad can use this command
 @discord.default_permissions(administrator=True) # So most people can't see this command at all
 async def load(ctx, extension):
-    extension = extension.lower()
-    bot.load_extension(f'cogs.{extension}')
-    await ctx.respond(f'Extension "{extension}" loaded!', ephemeral=True)
+    try:
+        extension = extension.lower()
+        bot.load_extension(f'cogs.{extension}')
+        await ctx.respond(f'Extension "{extension}" loaded!', ephemeral=True)
+    except:
+        try:
+            extension = extension.lower()
+            bot.load_extension(f'cogs.{extension}')
+            await ctx.respond(f'Extension "{extension}" loaded!', ephemeral=True)
+        except:
+            await ctx.respond(f"Couldn't load {extension} extension.", ephemeral=True)
 
 @bot.bridge_command(description="Unloads the given cog.") # Bridge command to unload a cog (case insensitive arg)
 @commands.check(is_it_me) # Only dad can use this command
 @discord.default_permissions(administrator=True) # So most people can't see this command at all
 async def unload(ctx, extension):
-    extension = extension.lower()
-    bot.unload_extension(f'cogs.{extension}')
-    await ctx.respond(f'Extension "{extension}" unloaded!', ephemeral=True)
+    try:
+        extension = extension.lower()
+        bot.unload_extension(f'cogs.{extension}')
+        await ctx.respond(f'Extension "{extension}" unloaded!', ephemeral=True)
+    except:
+        try:
+            extension = extension.lower()
+            bot.unload_extension(f'cogs.{extension}')
+            await ctx.respond(f'Extension "{extension}" unloaded!', ephemeral=True)
+        except:
+            await ctx.respond(f"Couldn't unload {extension} extension.", ephemeral=True)
 
 @bot.bridge_command(description="Reloads the given cog.") # Bridge command to reload a cog (case insensitive arg)
 @commands.check(is_it_me) # Only dad can use this command
 @discord.default_permissions(administrator=True) # So most people can't see this command at all
 async def reload(ctx, extension):
-    extension = extension.lower()
-    bot.unload_extension(f'cogs.{extension}')
-    bot.load_extension(f'cogs.{extension}')
-    await ctx.respond(f'Extension "{extension}" reloaded!', ephemeral=True)
+    try:
+        extension = extension.lower()
+        bot.unload_extension(f'cogs.{extension}')
+        bot.load_extension(f'cogs.{extension}')
+        await ctx.respond(f'Extension "{extension}" reloaded!', ephemeral=True)
+    except:
+        try:
+            extension = extension.lower()
+            bot.unload_extension(f'cogs.{extension}')
+            bot.load_extension(f'cogs.{extension}')
+            await ctx.respond(f'Extension "{extension}" reloaded!', ephemeral=True)
+        except:
+            await ctx.respond(f"Couldn't reload {extension} extension.", ephemeral=True)
 
 @bot.bridge_command(description="Kills me.") # Bridge command to kill the bot
 @commands.check(is_it_me) # Only dad can use this command

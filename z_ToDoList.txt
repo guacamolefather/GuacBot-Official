@@ -1,58 +1,7 @@
- Done Things:
- - Implement a clock ✓
- - #count (or #rolecall/#attendence) Show member count of server (members and non-bot members and how many of each role) ✓
- - "not now, __" turns off guac if me (using clock) ✓
- - stealemoji command <- the devil ✓
- - #dadjoke command ✓
- - Make Guac dependent on a picture of an avocado ✓
- - #uptime (elapsed time active) ✓
- - Respond to kudos ✓
- - Fly like an eagle? ✓
- - #translate (to) ✓
- - Story time? ✓
- - Let people be mean to Guac (NLP) ✓
- - Implement better AI instead of OpenAI ✓
- - Make bot patriotic again ✓
- - Affirmative NLP ✓
- - #emojiimage command? ✓
- - Fix mentions so he doesn't send help thing every time ✓
- - #kill command (random minecraft death) ✓
- - Port from discord.py to pycord or nextcord ✓
- - Literally anything, you lazy bastard ✓
- - Add keywords to a list before reacting and if  it has too many, ban the fuck out of the person spamming guac ✓
- - Slash commands? ✓
-
-To-Do Things:
- - Text-To-Speech?
- - Advanced "ReactionMod"
- - Use reactions blacklist for commands
- - PM if no perms to send messages
- - Profile command to show blacklist statuses and bank account
- - Make GuacBot offer someone random a cookie in a random channel in a random guild at a random interval (maybe enable him to respond to thanks?)
- - #highfive command (up high, down low, using clock and reactions)
- - advanced math functions
- - Add back error handlers
- - Add back "#help" descriptions
- - Avoid offensive words or slurs in translate?
- - And "I'm"? ^
- - "Turing test" reaction
- - New UI
- - Student cheat sheets? (important constants or formulas)
- - SadBot reaction?
- - Personal assistant functions??
- - Make it so I can reply to guac message to delete it
- - Make owner commands reformat information into embeds
- - Base calculator
- - Add special commands for people apart of the GuacBot Workshop
- - Fix "customemoji" for slash command usage
- - Circumvent Guac's dementia by replying to his messages?
- - Different prompts for different people (based on IDs)?
- - See how to hide slash commands from people who aren't allowed to use them??
- - Automatically remove messages after reaching a certain amount?
- - Give Guac a big tiddy goth gf (a logic model instead of language?)
- - Reimplement the convoluted triggers fix
- - Make Guac a dumbass for Alberto
- - Look into Guac's possible logic model companion "SalsAI"
- - Make Guac not "5.0", so I'm not afraid to say an update is "major"
- - Add SadBot personality to brain JSON 👀
- - Make commands for me to clear out Guac and Salsa's short term memory
+Pending tasks:
+- Implement command to omit certain reactions from Guac's list (for a server)
+- Implement the rest of economy
+- Add SadBot personality to brain JSON 👀
+- Implement role blacklisting commands to disallow certain roles from talking to GuacBot
+- Make AI whitelist so that IDs have to be added to bot data to allow the usage of GuacBot's AI functionality (so my computer doesn't explode)
+- Add @discord.guild_only() decorator to applicable commands

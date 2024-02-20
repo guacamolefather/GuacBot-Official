@@ -80,6 +80,9 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
         
     @commands.slash_command(description="Returns server data on the user.") # Slash command for returning server data on the user
     async def profile(self, ctx):
+        botData = FetchBotData()
+        serverData = FetchServerData()
+        
         member = ctx.author
         embed = discord.Embed(title=str(member), description="Member data:", colour=member.top_role.color, url="https://github.com/guacamolefather?tab=repositories")
         embed.set_thumbnail(url=member.avatar.url)
@@ -115,6 +118,26 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
             if (channel.permissions_for(member).read_messages):
                 hasCounter = hasCounter + 1
         embed.add_field(name="Channels:",value=f"Has access to {hasCounter} out of {isCounter} channels.",inline=False)
+        
+        # Reaction ban status:
+        isBanned = False
+        how = "isn't"
+        if (member.id in serverData[str(ctx.guild.id)]["Reactions"]["blacklist"]):
+            isBanned = True
+            how = "individually, by an admin."
+        for banned in serverData[str(ctx.guild.id)]["Reactions"]["roleblacklist"]:
+            for role in member.roles:
+                if (role.id == banned):
+                    isBanned = True
+                    how = "via a role."
+        if (str(member.id) in botData["Reactions"]["global_blacklist"].keys()):
+            isBanned = True
+            how = "globally, by my dad."
+            
+        if (isBanned):
+            embed.add_field(name="Reactions status:",value=f"Banned {how}",inline=False)
+        else:
+            embed.add_field(name="Reactions status:",value="Available! Feel free to talk to me :)",inline=False)
 
         # Admin profile notification:
         embed.add_field(name="Regular profile",value="This is the regular profile command. For the admin command (other user), use /adminprofile (with admin priviledges).", inline=False)
