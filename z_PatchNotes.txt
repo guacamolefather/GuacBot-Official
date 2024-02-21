@@ -54,3 +54,6 @@ Moved the character limit function to a shared module instead of just reaction c
 
 - 02/20/2024: GuacBot6.1.1 (a /adminprofile update)
 I forgor to update /adminprofile with the /profile addition...
+
+- 02/20/2024: GuacBot6.1.2 (a tiny reactions bug fix update)
+I may or may not have used a Java method on accident that I had to fix... (I also definitely didn't forget a comma in one of the JSON files)

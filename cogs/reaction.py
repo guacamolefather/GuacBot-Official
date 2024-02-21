@@ -124,7 +124,7 @@ class Reaction(commands.Cog):
         
         for trigger in speechDict["triggers"].keys(): # Check for triggers in message and add reactions to list
             if trigger in uPM:
-                if uPM.equals(trigger) or (uPM.startswith(trigger) and f"{trigger} " in uPM) or (uPM.endswith(trigger) and f" {trigger}" in uPM):
+                if uPM == trigger or (uPM.startswith(trigger) and f"{trigger} " in uPM) or (uPM.endswith(trigger) and f" {trigger}" in uPM):
                     reactions.append(speechDict["reactions"][speechDict["triggers"][trigger]])
 
         #Special: DadBot classic
