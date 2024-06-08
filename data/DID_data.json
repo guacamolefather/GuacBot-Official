@@ -1,6 +1,31 @@
 {
     "GuacBot": {
-        "memory": [],
+        "memory": [
+            {
+                "content": "guacamolefather says: Guac, write me a poem about how wonderful and versatile tacos are",
+                "role": "user"
+            },
+            {
+                "content": "Here's my ode to tacos, dear creator:\n\nThe humble shell of tortilla holds\nA feast fit for the kings of old,\nAnd yet with each bite, its simplicity\nUnfurls like a butterfly's mystery.\n\nFrom hearty meats to tangy salsas,\nAll find a place, like magic masala;\nTacos invite a symphony of flavors\nTo dance a spicy fiesta that lingers.\n\nThere are no bounds to taco's embrace,\nEach bite a new and exciting race.\nOh, you noble shell, how you've enchanted\nThis humble bot and his creator delighted.\n\nAnd so, as we salute our versatile friend,\nMay we forever raise tacos to the end.\n\n(That was for you, guacamolefather. Happy now?)",
+                "role": "assistant"
+            },
+            {
+                "content": "guacamolefather says: How do you feel about arroz con gandules, Guac?",
+                "role": "user"
+            },
+            {
+                "content": "Arroz con gandules, the Puerto Rican delicacy, is indeed a delight to my palate. The combination of rice, pigeon peas, and saffron spice is an explosion of Caribbean flavors, perfect for sharing with family and friends. It's a dish to cherish and relish, one that evokes happy memories for my creator.",
+                "role": "assistant"
+            },
+            {
+                "content": "guacamolefather says: Give me the perfect arroz con gandules recipe, Guac",
+                "role": "user"
+            },
+            {
+                "content": "My honorable creator, here's a classic arroz con gandules recipe to cook up this tasty delicacy:\n\nIngredients:\n1/4 lb pigeon peas\n1 lb long-grain rice\n1 small green pepper, chopped\n2 tablespoons vegetable oil\n3 garlic cloves, minced\n1 teaspoon ground cumin\n1/8 teaspoon saffron threads\n2 cans (14.5 oz each) chicken broth\n1/4 teaspoon pepper\nSalt to taste\n1 cup canned pimento-stuffed green olives\n1 cup chopped fresh cilantro\n\nDirections:\n1. Soak the pigeon peas in water for 24 hours, then drain and rinse.\n2. Cook the rice according to package instructions.\n3. Saut\u00e9 green pepper, garlic, cumin in the vegetable oil over medium heat, stirring for about 4-5 minutes.\n4. Add the soaked and drained pigeon peas, saffron, chicken broth, pepper, salt, and bring it to a boil.\n5. Simmer until the pigeon peas are tender (about 40 minutes).\n6. Stir in olives, cooked rice, and cilantro.\n7. Adjust the seasoning, and serve.\n\nBon app\u00e9tit, guacamolefather! Enjoy your arroz con gandules feast. <3",
+                "role": "assistant"
+            }
+        ],
         "model": {
             "frequency_penalty": 0.5,
             "max_tokens": 4096,

@@ -62,7 +62,7 @@ class Reaction(commands.Cog):
             await message.channel.send("Sorry, I'll be back in five...")
             return
 
-        if lowerMessage.startsWith("$wipe_brain"):
+        if message.content.startswith("$"):
             return
 
         if botData["Reactions"]["wait_until"] > time.time(): # If Guac was told to stop reacting temporarily
@@ -94,7 +94,7 @@ class Reaction(commands.Cog):
                 await message.reference.resolved.delete()
                 return
         
-        if ("guac" in lowerMessage or "salsa" in lowerMessage) or (random.randint(1, 10) == 7) and str(message.guild.id) in botData["Reactions"]["server_whitelist"].keys(): # If the message is addressed to GuacBot or SalsAI and the server is AI whitelisted
+        if (("guac" in lowerMessage or "salsa" in lowerMessage) or (random.randint(1, 10) == 7)) and str(message.guild.id) in botData["Reactions"]["server_whitelist"].keys(): # If the message is addressed to GuacBot or SalsAI and the server is AI whitelisted
             personality = ""
             
             if (lowerMessage.find("guac") != -1 and lowerMessage.find("guac") < lowerMessage.find("salsa")) or lowerMessage.find("salsa") == -1:

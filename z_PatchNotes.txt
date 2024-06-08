@@ -69,3 +69,6 @@ I
 
 - 06/08/2024: GuacBot6.2.3 (a tiny update)
 Fixed responding to $wipe_brain command being used. Allowed Guac to rarely butt into conversations he wasn't a part of (experimental). Fixed incorrect math on pre-made reactions (is actually 1 in 3 now). Finishing touches on command groups and hiding owner commands. Consistency change for /uptime string formatting.
+
+- 06/08/2024: GuacBot6.2.4 (a lowercase update)
+I think I accidentally used a Java method again, had to change the case of a letter and it just worked...
