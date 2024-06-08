@@ -1,6 +1,7 @@
 from cogs.extraclasses.jason import * # JSON file handling
 from cogs.extraclasses.avocado import * # The infamous pineapple
-from discord.ext import commands, bridge
+from discord.commands import SlashCommandGroup
+from discord.ext import commands
 import discord, time, requests
 
 botData = FetchBotData()
@@ -11,6 +12,8 @@ class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    admin = SlashCommandGroup("admin", "Zero shower guarantee!")
+
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ EVENT HANDLERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
     @commands.Cog.listener()
@@ -19,37 +22,17 @@ class Admin(commands.Cog):
 
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-    @bridge.bridge_command(description="Tests if the Admin cog is loaded.") # Bridge command for testing if the cog is loaded
-    @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def admintest(self, ctx):
-        await ctx.respond('Admin extension cog works!', ephemeral=True)
-
-    @commands.slash_command(description="Gets rid of a specified amount of messages.") # Slash command for clearing messages
+    @admin.command(description="Gets rid of a specified amount of messages.") # Slash command for clearing messages
     @discord.default_permissions(manage_messages=True) # User needs to have manage messages permission
-    async def message_clear(self, ctx, amount: int):
+    async def clear_messages(self, ctx, amount: int):
         await ctx.respond(f"Clearing {amount} messages...", ephemeral=True)
         time.sleep(1)
         await ctx.channel.purge(limit=amount)
-
-    @commands.slash_command(description="Softbans the specified member (with opt reason).") # Slash command for softbanning a member
-    @discord.default_permissions(ban_members=True) # Only full admins can use this command
-    async def softban(self, ctx, member: discord.Member, *, reason="A good one, trust me."):
-        await member.ban(reason=reason)
-        banned_users = await ctx.guild.bans()
-        member_name, member_discriminator = member.split('#')
-
-        for ban_entry in banned_users:
-            user = ban_entry.user
-
-            if (user.name, user.discriminator) == (member_name, member_discriminator):
-                await ctx.guild.unban(user)
-                await ctx.respond(f'Softbanned {member.mention}.\nReason: {reason}.')
-                return
     
-    @commands.slash_command(description="Steals the given custom emoji for the server.") # Slash command for stealing an emoji
+
+    @admin.command(description="Steals the given custom emoji for the server.") # Slash command for stealing an emoji
     @discord.default_permissions(manage_emojis=True) # Only full admins can use this command
-    async def stealemoji(self, ctx, *, emoji):
+    async def steal_emoji(self, ctx, *, emoji):
 
         if not emoji.startswith("<"):
             await ctx.respond("Just an emoji, pls.", ephemeral=True)
@@ -77,8 +60,9 @@ class Admin(commands.Cog):
             else:
                 await ctx.respond(f"I don't have permission to do that...", ephemeral=True)
 
-    @commands.slash_command(description="Returns server data on the user.") # Slash command for returning server data on the user
-    async def adminprofile(self, ctx, member: discord.Member):
+
+    @admin.command(description="Returns server data on the user.") # Slash command for returning server data on the user
+    async def profile(self, ctx, member: discord.Member):
         botData = FetchBotData()
         serverData = FetchServerData()
         
@@ -139,9 +123,10 @@ class Admin(commands.Cog):
 
         await ctx.respond(embed=embed, ephemeral=True)
 
-    @commands.slash_command(description="Counts the amount of people with certain roles.") # Slash command for counting the amount of people with certain roles
+
+    @admin.command(description="Counts the amount of people with certain roles.") # Slash command for counting the amount of people with certain roles
     @discord.default_permissions(manage_roles=True) # Only full admins can use this command
-    async def rolecount(self, ctx):
+    async def role_count(self, ctx):
         withrole = 0
         memberswithrole = ""
         fields = 1
@@ -158,11 +143,12 @@ class Admin(commands.Cog):
             print(len(memberswithrole))
             fields += 1
             
-            embed.add_field(name=f"{role} members:",value=str(withrole) + ": (" + memberswithrole + ")", inline=False)
+            embed.add_field(name=f"{role} - created on {role.created_at.strftime('%d/%m/%Y at %H:%M:%S')}:",value=str(withrole) + ": (" + memberswithrole + ")", inline=False)
             withrole = 0
             memberswithrole = ""
         
         await ctx.respond(embed=embed, ephemeral=True)
+
 
 def setup(bot):
     bot.add_cog(Admin(bot))

@@ -98,9 +98,9 @@
                 "type": "stream"
             }
         ],
-        "start_time": 1708476322.5725384,
+        "start_time": 1717811241.8525186,
         "time_checked": 1670292480.8962822,
-        "version": "6.1.2"
+        "version": "6.2.2"
     },
     "Reactions": {
         "global_blacklist": {
@@ -115,8 +115,9 @@
         "server_whitelist": {
             "540987349610528768": "Aiden Colonno: Battle Royale",
             "763550505469083650": "Humble Indian Mafia (HIM)",
-            "798390128430809088": "GuacBot Workshop"
+            "798390128430809088": "GuacBot Workshop",
+            "827776738750103553": "Kangaroos in western indiana"
         },
-        "wait_until": 1707637007.4549062
+        "wait_until": 1715583471.9830832
     }
 }

@@ -1,7 +1,8 @@
 ﻿from re import M
 from cogs.extraclasses.jason import * # JSON file handling
 from cogs.extraclasses.avocado import * # The infamous pineapple
-from discord.ext import commands, bridge
+from discord.commands import SlashCommandGroup
+from discord.ext import commands
 import discord, time
 
 botData = FetchBotData()
@@ -12,30 +13,15 @@ class Owner(commands.Cog): # Commands just for me :)
     def __init__(self, bot): # Cog bot context requierment
         self.bot = bot
 
-
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ EVENT HANDLERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
     @commands.Cog.listener()
     async def on_ready(self):
         print("Owner processes active.")
-
-
+        
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ HQ COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-    @bridge.bridge_command(description="Tests if the Owner cog is loaded.") # Bridge command for testing if the cog is loaded
+    @commands.command(hidden=True, description="Changes Guac's status.") # Command for changing Guac's status
     @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def ownertest(self, ctx):
-        await ctx.respond('Owner extension cog works!', ephemeral=True)
-    
-    @bridge.bridge_command(description="Makes Guac send a TTS message with the specified words.") # Bridge command for making Guac send a TTS message with the specified words
-    @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def faketts(self, ctx, *, words: commands.clean_content):
-        await ctx.respond(words, tts=True, ephemeral=True)
-    
-    @bridge.bridge_command(description="Changes Guac's status.") # Bridge command for changing Guac's status
-    @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def changestatus(self, ctx, activity: str, *, status: str):
+    async def change_status(self, ctx, activity: str, *, status: str):
         # Setting "Listening" status
         if "listen" == activity.lower():
             await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=status))
@@ -54,16 +40,15 @@ class Owner(commands.Cog): # Commands just for me :)
             
         # Setting "Playing" status
         else:
-            await self.bot.change_presence(activity=discord.Game(status))
+            await self.bot.change_presence(activity=discord.Game(f'{activity} {status}'))
 
         await ctx.respond("Status changed!", ephemeral=True)
         
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DATA COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-    @bridge.bridge_command(description="Globally Guac blacklists the specified member.") # Bridge command for globally blacklisting a member
+    @commands.command(hidden=True, description="Globally Guac blacklists the specified member.") # Command for globally blacklisting a member
     @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def globalblacklist(self, ctx, member : discord.Member):
+    async def global_blacklist(self, ctx, member : discord.Member):
         botData = FetchBotData()
         try:
             botData["Reactions"]["global_blacklist"][f"{member.id}"] = member.name
@@ -73,10 +58,9 @@ class Owner(commands.Cog): # Commands just for me :)
         UpdateBotData(botData)
         await ctx.respond(f"{member.name} now on Guac global blacklist.")
 
-    @bridge.bridge_command(description="Globally Guac unblacklists the specified member.") # Bridge command for globally unblacklisting a member
+    @commands.command(hidden=True, description="Globally Guac unblacklists the specified member.") # Command for globally unblacklisting a member
     @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def globalunblacklist(self, ctx, member : discord.Member):
+    async def global_unblacklist(self, ctx, member : discord.Member):
         botData = FetchBotData()
         try:
             del botData["Reactions"]["global_blacklist"][f"{member.id}"]
@@ -86,20 +70,18 @@ class Owner(commands.Cog): # Commands just for me :)
         UpdateBotData(botData)
         await ctx.respond(f"{member.name} bailed from Guac global blacklist :rolling_eyes:")
 
-    @bridge.bridge_command(description="Shows global blacklist.") # Bridge command for showing the global blacklist
+    @commands.command(hidden=True, description="Shows global blacklist.") # Command for showing the global blacklist
     @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def readblacklist(self, ctx):
+    async def read_blacklist(self, ctx):
         botData = FetchBotData()
         message = "Global blacklist:\n"
         for loser in botData["Reactions"]["global_blacklist"].values():
             message += f"- {loser}\n"
         await ctx.respond(message)
 
-    @bridge.bridge_command(description="Locates the member based on their ID.") # Bridge command for locating a member based on their ID")
+    @commands.command(hidden=True, description="Locates the member based on their ID.") # Command for locating a member based on their ID")
     @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def locateid(self, ctx, member_id):
+    async def locate_id(self, ctx, member_id):
         member = None
         try:
             member = await self.bot.fetch_user(int(member_id))
@@ -111,12 +93,17 @@ class Owner(commands.Cog): # Commands just for me :)
         else:
             await ctx.respond(f"Member ID is for: {member.name}", ephemeral=True)
             
+    
+    @commands.command(hidden=True, description="Pings Guac.") # Command for pinging the bot to check latency
+    @commands.check(is_it_me) # Only dad can use this command
+    async def ping(self, ctx):
+        await ctx.respond(f'Latency: {round(self.bot.latency * 1000)}ms.', ephemeral=True)
+        
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BRAIN COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-    @bridge.bridge_command(description="Empties GuacBot's short-term memory.") # Bridge command for emptying GuacBot's short-term memory
+    @commands.command(hidden=True, description="Empties GuacBot's short-term memory.") # Command for emptying GuacBot's short-term memory
     @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def wipebrain(self, ctx, personality: str):
+    async def wipe_brain(self, ctx, personality: str):
         if personality == "GuacBot" or personality == "SalsAI":
             brainData = FetchBrainData()
             brainData[personality]["memory"] = []
@@ -126,10 +113,9 @@ class Owner(commands.Cog): # Commands just for me :)
             await ctx.respond("Invalid personality.", ephemeral=True)
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PERSONAL COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-    @bridge.bridge_command(description="Adds something to the to-do list.") # Bridge command for adding something to the to-do list
+    @commands.command(hidden=True, description="Adds something to the to-do list.") # Command for adding something to the to-do list
     @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def todo(self, ctx, *, do: str):
+    async def to_do(self, ctx, *, do: str):
         channel = self.bot.get_channel(813974138581942282)
         await channel.send(f"- {do}")
         
@@ -155,10 +141,9 @@ class Owner(commands.Cog): # Commands just for me :)
         writer.close()
         await ctx.respond("To-do list saved to file.", ephemeral=True)
     
-    @bridge.bridge_command(description="Fetches pending to-do list items.") # Bridge command for collecting unreacted messages in #guacbot-to-do
+    @commands.command(hidden=True, description="Fetches pending to-do list items.") # Command for collecting unreacted messages in #guacbot-to-do
     @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def fetchtodo(self, ctx):
+    async def fetch_to_do(self, ctx):
         channel = self.bot.get_channel(813974138581942282)
         messages = await channel.history(limit=100).flatten()
         messages.reverse()
@@ -180,10 +165,9 @@ class Owner(commands.Cog): # Commands just for me :)
         writer.close()
         await ctx.respond("To-do list saved to file.", ephemeral=True)
 
-    @bridge.bridge_command(description="Updates the patch notes + version and sends them to the announcements channel.") # Bridge command for updating the patch notes and version
+    @commands.command(hidden=True, description="Updates the patch notes + version and sends them to the announcements channel.") # Command for updating the patch notes and version
     @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def patch(self, ctx, patch_type: str, patch_info: str):
+    async def patch(self, ctx, patch_type: str, *, patch_info: str):
         
         last_version = botData["HQ"]["version"]
         if patch_type.startswith("major"):
@@ -215,9 +199,8 @@ class Owner(commands.Cog): # Commands just for me :)
         
         await ctx.respond('Added to the notes!', ephemeral=True)
         
-    @bridge.bridge_command(description="Adds a new nickname to the list.") # Bridge command for adding a new nickname to the list
+    @commands.command(hidden=True, description="Adds a new nickname to the list.") # Command for adding a new nickname to the list
     @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
     async def nickname(self, ctx, *, name: str):
         with open('E:/z_Nicknames.txt', 'a', encoding='utf-8') as writer:
             writer.write(f"\n- {name}")

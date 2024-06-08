@@ -71,7 +71,7 @@ def RefreshServerData(bot):
                 serverIDs.append(str(server.id))
                 if str(server.id) in data.keys():
                     if data[str(server.id)]["HQ"]["owner"] != server.owner.name:
-                        data[str(server.id)]["HQ"]["owner"] = server.ownerr.name
+                        data[str(server.id)]["HQ"]["owner"] = server.owner.name
                     if data[str(server.id)]["HQ"]["name"] != str(server.name):
                         data[str(server.id)]["HQ"]["name"] = str(server.name)
                 if str(server.id) not in data.keys():

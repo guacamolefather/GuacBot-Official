@@ -1,13 +1,16 @@
 from cogs.extraclasses.jason import * # JSON file handling
 from cogs.extraclasses.avocado import * # The infamous pineapple
-from discord.ext import commands, bridge
+from discord.commands import SlashCommandGroup
+from discord.ext import commands
 import discord, random
 
 class Fun(commands.Cog): # THE COG ALL ABOUT HAVING FUN (kinda depracated)
 
     def __init__(self, bot):
         self.bot = bot
-
+        
+    fun = SlashCommandGroup("fun", "Useless but sentimental!")
+    
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ EVENT HANDLERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
     @commands.Cog.listener()
@@ -16,27 +19,21 @@ class Fun(commands.Cog): # THE COG ALL ABOUT HAVING FUN (kinda depracated)
         
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-    @bridge.bridge_command(description="Tests if the Fun cog is loaded.") # Bridge command for testing if the cog is loaded
-    @commands.check(is_it_me) # Only Dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def funtest(self, ctx):
-        await ctx.respond('Fun extension cog works!', ephemeral=True)
-
-    @commands.slash_command(description="Guac answers your question.") # Slash command for a fortune-telling eightball
-    async def eightball(self, ctx, *, question: str):
+    @fun.command(description="Guac answers your question.") # Slash command for a fortune-telling eightball
+    async def eight_ball(self, ctx, *, question: str):
         responses = ['Hmmmm.','Ask again.',"It's possible.",'Maybe.','Perhaps.','Not sure.','Uncertain.','(͡° ͜ʖ ͡°)','No clue.','Response hazy.']
         await ctx.respond(f'Question: {question}\nAnswer: {random.choice(responses)}')
 
-    @commands.slash_command(description="Rolls specified sided die a specified amount of times.") # Slash command for rolling a dice (or multiple)
-    async def rolldice(self, ctx, sides=6, amount=1):
+    @fun.command(description="Rolls specified sided die a specified amount of times.") # Slash command for rolling a dice (or multiple)
+    async def roll_dice(self, ctx, sides=6, amount=1):
         diceList=[]
         for i in range(0, amount):
             diceList.append(random.randint(1,sides))
             i = i + 1
         await ctx.respond("Your roll(s) are:  " + str(diceList))
 
-    @commands.slash_command(description="Play a game of Rock, Paper, Scissors against Guac!") # Slash command for playing Rock, Paper, Scissors
-    async def rps(self, ctx, choice: str):
+    @fun.command(description="Play a game of Rock, Paper, Scissors against Guac!") # Slash command for playing Rock, Paper, Scissors
+    async def rock_paper_scissors(self, ctx, choice: str):
         botchoice = random.randint(0, 2)
         if botchoice == 0 and choice.lower() == "rock":
             await ctx.respond("I chose rock!  It's a tie!")
@@ -56,6 +53,8 @@ class Fun(commands.Cog): # THE COG ALL ABOUT HAVING FUN (kinda depracated)
             await ctx.respond("I chose scissors! I win!")
         elif botchoice == 2 and choice.lower() == "scissors":
             await ctx.respond("I chose scissors! It's a tie!")
+        elif choice.lower() == "gun":
+            await ctx.respond(":neutral_face:")
         else:
             await ctx.respond("Do you know how to play this game or are you bad at spelling..?")
 
@@ -68,7 +67,7 @@ class Fun(commands.Cog): # THE COG ALL ABOUT HAVING FUN (kinda depracated)
         await ctx.send("SHH!!!", delete_after=3)
 
     #https://minecraft.fandom.com/wiki/Death_messages
-    @commands.slash_command(description="Kills the specified member.") # Slash command for killing a member
+    @fun.command(description="Kills the specified member.") # Slash command for killing a member
     async def kill(self, ctx, member : discord.Member):
         if member.id == ctx.author.id:
             await ctx.respond("Do you need a lighthouse??")

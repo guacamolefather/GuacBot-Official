@@ -1,6 +1,7 @@
 from cogs.extraclasses.jason import * # JSON file handling
 from cogs.extraclasses.avocado import * # The infamous pineapple
-from discord.ext import commands, bridge
+from discord.commands import SlashCommandGroup
+from discord.ext import commands
 import discord
 
 botData = FetchBotData()
@@ -10,6 +11,8 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
 
     def __init__(self, bot): # Cog bot context requierment
         self.bot = bot
+        
+    utility = SlashCommandGroup("utility", "Useful AND sentimental!")
 
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ EVENT HANDLERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
@@ -19,26 +22,14 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
 
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-    @bridge.bridge_command(description="Tests if the Utility cog is loaded.") # Bridge command for testing if the cog is loaded
-    @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def utilitytest(self, ctx):
-        await ctx.respond('Utility extension cog works!', ephemeral=True)
-
-    @bridge.bridge_command(description="Pings Guac.") # Bridge command for pinging the bot to check latency
-    @commands.check(is_it_me) # Only dad can use this command
-    @discord.default_permissions(administrator=True) # So most people can't see this command at all
-    async def ping(self, ctx):
-        await ctx.respond(f'Latency: {round(self.bot.latency * 1000)}ms.', ephemeral=True)
-
-    @commands.slash_command(description="Shows the avatar of the given member (or user if not given).") # Slash command for showing the avatar of a given member (or the user if none given)
+    @utility.command(description="Shows the avatar of the given member (or user if not given).") # Slash command for showing the avatar of a given member (or the user if none given)
     async def avatar(self, ctx, member : discord.Member=None):
         if (member == None):
             member = ctx.author
         await ctx.respond(f"{member.avatar.url}", ephemeral=True)
     
-    @commands.slash_command(description="Returns an image of the given custom emoji.") # Slash command for returning an image of the given custom emoji
-    async def emojiimage(self, ctx, *, msg):
+    @utility.command(description="Returns an image of the given custom emoji.") # Slash command for returning an image of the given custom emoji
+    async def emoji_image(self, ctx, *, msg):
         if not msg.startswith("<"):
             await ctx.respond("Just a custom emoji, pls.", ephemeral=True)
             return
@@ -58,8 +49,8 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
         except:
             await ctx.respond("Just a custom emoji, pls.", ephemeral=True)
     
-    @commands.slash_command(description="Shows total + human + online/DND member count.") # Slash command for showing how many members are in the server
-    async def rolecall(self, ctx):
+    @utility.command(description="Shows total + human + online/DND member count.") # Slash command for showing how many members are in the server
+    async def role_call(self, ctx):
         notbots = 0
         online = 0
         icon_url = ctx.guild.icon.url
@@ -80,7 +71,7 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
 
         await ctx.respond(embed=embed)
         
-    @commands.slash_command(description="Returns server data on the user.") # Slash command for returning server data on the user
+    @utility.command(description="Returns server data on the user.") # Slash command for returning server data on the user
     async def profile(self, ctx):
         botData = FetchBotData()
         serverData = FetchServerData()
@@ -146,5 +137,15 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
 
         await ctx.respond(embed=embed)
 
+    @utility.command(description="Shows info about a role.") # Slash command for showing info about a role
+    async def role_info(self, ctx, role: discord.Role):
+        embed = discord.Embed(title=f"{role.name}", description="Role data:", colour=role.color, url="https://github.com/guacamolefather?tab=repositories")
+        embed.set_thumbnail(url=role.guild.icon.url)
+        embed.add_field(name="ID:",value=role.id, inline=False)
+        embed.add_field(name="Created on:",value=str(role.created_at.strftime('%d/%m/%Y at %H:%M:%S')), inline=False)
+        embed.add_field(name="Members with this role:",value=len(role.members), inline=False)
+        
+        await ctx.respond(embed=embed)
+    
 def setup(bot):
     bot.add_cog(Utility(bot))

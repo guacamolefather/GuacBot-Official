@@ -57,3 +57,12 @@ I forgor to update /adminprofile with the /profile addition...
 
 - 02/20/2024: GuacBot6.1.2 (a tiny reactions bug fix update)
 I may or may not have used a Java method on accident that I had to fix... (I also definitely didn't forget a comma in one of the JSON files)
+
+- 06/07/2024: GuacBot6.2.0 (a minor update)
+I
+
+- 06/07/2024: GuacBot6.2.1 (a oops update)
+(Last
+
+- 06/07/2024: GuacBot6.2.2 (a oops update)
+(Last patch notes:) I think there were little things I forgor to add to patch notes but the most recent fixes are just officially hiding owner commands from normies by making them old prefix commands so that people aren't confused as to which they can use. Also added command groups, so that commands are easier to find :)
