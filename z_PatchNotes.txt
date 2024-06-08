@@ -66,3 +66,6 @@ I
 
 - 06/07/2024: GuacBot6.2.2 (a oops update)
 (Last patch notes:) I think there were little things I forgor to add to patch notes but the most recent fixes are just officially hiding owner commands from normies by making them old prefix commands so that people aren't confused as to which they can use. Also added command groups, so that commands are easier to find :)
+
+- 06/08/2024: GuacBot6.2.3 (a tiny update)
+Fixed responding to $wipe_brain command being used. Allowed Guac to rarely butt into conversations he wasn't a part of (experimental). Fixed incorrect math on pre-made reactions (is actually 1 in 3 now). Finishing touches on command groups and hiding owner commands. Consistency change for /uptime string formatting.

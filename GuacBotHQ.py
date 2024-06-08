@@ -1,6 +1,5 @@
 from cogs.extraclasses.jason import * # JSON file handling
 from cogs.extraclasses.avocado import * # The infamous pineapple
-from discord.commands import SlashCommandGroup
 from discord.ext import bridge, commands, tasks # Discord.py commands and tasks
 from itertools import cycle # For cycling through statuses
 import discord, time, os, random # Standard libraries
@@ -59,27 +58,27 @@ async def help(ctx):
         await ctx.respond("```$die\n$restart\n$refresh_server_data\n$load [cog]\n$unload [cog]\n$reload [cog]\n$change_status  [listen/watch/stream/custom/(blank for play)] [status]\n$global_blacklist [member]\n$global_unblacklist [member]\n$read_blacklist\n$locate_id [member id]\n$ping\n$wipe_brain [personality]\n$to_do [task]\n$fetch_to_do\n$patch [major/minor/misc] [info]\n$nickname [addition]```")
 
 
-@bot.command(hidden=True,description="Kills me.") # Bridge command to kill the bot
+@bot.command(hidden=True,description="Kills me.") # Command to kill the bot
 @commands.check(is_it_me) # Only dad can use this command
 async def die(ctx):
     await ctx.respond("Goodbye, father.")
     await bot.change_presence(activity=discord.Game("Goodbye."))
     quit()
 
-@bot.command(hidden=True,description="Restarts me.") # Bridge command to restart the bot
+@bot.command(hidden=True,description="Restarts me.") # Command to restart the bot
 @commands.check(is_it_me) # Only dad can use this command
 async def restart(ctx):
     await ctx.respond("Restarting!", ephemeral=True)
     os.startfile(__file__)
     os._exit(1)
 
-@bot.command(hidden=True,description="Refreshes server_data.json") # Bridge command to refresh the server data
+@bot.command(hidden=True,description="Refreshes server_data.json") # Command to refresh the server data
 @commands.check(is_it_me) # Only dad can use this command
 async def refresh_server_data(ctx):
     RefreshServerData(bot)
     await ctx.respond("Refreshing server data!", ephemeral=True)
 
-@bot.command(hidden=True,description="Loads the given cog.") # Bridge command to load a cog (case insensitive arg)
+@bot.command(hidden=True,description="Loads the given cog.") # Command to load a cog (case insensitive arg)
 @commands.check(is_it_me) # Only dad can use this command
 async def load(ctx, extension):
     try:
@@ -94,7 +93,7 @@ async def load(ctx, extension):
         except:
             await ctx.respond(f"Couldn't load {extension} extension.", ephemeral=True)
 
-@bot.command(hidden=True,description="Unloads the given cog.") # Bridge command to unload a cog (case insensitive arg)
+@bot.command(hidden=True,description="Unloads the given cog.") # Command to unload a cog (case insensitive arg)
 @commands.check(is_it_me) # Only dad can use this command
 async def unload(ctx, extension):
     try:
@@ -109,7 +108,7 @@ async def unload(ctx, extension):
         except:
             await ctx.respond(f"Couldn't unload {extension} extension.", ephemeral=True)
 
-@bot.command(hidden=True,description="Reloads the given cog.") # Bridge command to reload a cog (case insensitive arg)
+@bot.command(hidden=True,description="Reloads the given cog.") # Command to reload a cog (case insensitive arg)
 @commands.check(is_it_me) # Only dad can use this command
 async def reload(ctx, extension):
     try:
@@ -129,16 +128,16 @@ async def reload(ctx, extension):
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ GENERAL HQ COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
         
-check = SlashCommandGroup("check", "Vanilla as heck!")
+show = bot.create_group("show", "Vanilla as heck!")
     
 def time_convert(sec):
     mins = sec // 60
     sec = sec % 60
     hours = mins // 60
     mins = mins % 60
-    return "{0} hours, {1} minutes, {2} seconds".format(int(hours),int(mins),sec)
+    return f"{int(hours)} hours, {int(mins)} minutes, {sec} seconds"
 
-@check.command(description="Displays my uptime and when it was last checked!") # Slash command to display the bot's uptime and when it was last checked
+@show.command(description="Displays my uptime and when it was last checked!") # Slash command to display the bot's uptime and when it was last checked
 async def uptime(ctx):
     time_elapsed = time.time() - botData["HQ"]["start_time"] # Calculate the time elapsed since the bot started
     time_checked = time.time() - botData["HQ"]["time_checked"] # Calculate the time elapsed since the bot's uptime was last checked
@@ -146,11 +145,11 @@ async def uptime(ctx):
     UpdateBotData(botData)
     await ctx.respond(f"Uptime: {time_convert(time_elapsed)}\nLast Checked: {time_convert(time_checked)} ago.")
 
-@check.command(description="Displays the bot's current version!") # Slash command to display the bot's current version
+@show.command(description="Displays the bot's current version!") # Slash command to display the bot's current version
 async def version(ctx):
     await ctx.respond(f"Current version: {guac_version}")
 
-@check.command(description="Guac will send his link and a link to his server!") # Slash command to display the bot's invite link and support server link
+@show.command(description="Guac will send his link and a link to his server!") # Slash command to display the bot's invite link and support server link
 async def invite(ctx):
     await ctx.respond("Link to bot: https://discord.com/api/oauth2/authorize?client_id=582337819532460063&permissions=8&scope=bot\nLink to support server: https://discord.gg/2kgZazXN68")
 

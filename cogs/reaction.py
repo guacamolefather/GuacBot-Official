@@ -62,6 +62,9 @@ class Reaction(commands.Cog):
             await message.channel.send("Sorry, I'll be back in five...")
             return
 
+        if lowerMessage.startsWith("$wipe_brain"):
+            return
+
         if botData["Reactions"]["wait_until"] > time.time(): # If Guac was told to stop reacting temporarily
             return
         
@@ -91,7 +94,7 @@ class Reaction(commands.Cog):
                 await message.reference.resolved.delete()
                 return
         
-        if ("guac" in lowerMessage or "salsa" in lowerMessage) and str(message.guild.id) in botData["Reactions"]["server_whitelist"].keys(): # If the message is addressed to GuacBot or SalsAI and the server is AI whitelisted
+        if ("guac" in lowerMessage or "salsa" in lowerMessage) or (random.randint(1, 10) == 7) and str(message.guild.id) in botData["Reactions"]["server_whitelist"].keys(): # If the message is addressed to GuacBot or SalsAI and the server is AI whitelisted
             personality = ""
             
             if (lowerMessage.find("guac") != -1 and lowerMessage.find("guac") < lowerMessage.find("salsa")) or lowerMessage.find("salsa") == -1:
@@ -99,17 +102,22 @@ class Reaction(commands.Cog):
             else:
                 personality = "SalsAI"
             
+            guacMessage = []
+
             async with message.channel.typing():
                 try:
                     guacMessage = charLimit(DIDAIMessage(message.content, message.author, personality))
                 except Exception as e:
-                    guacMessage = [f"Sorry, my AI capabilities are currently offline: {e}"]
+                    if ("guac" in lowerMessage or "salsa" in lowerMessage):
+                        guacMessage = [f"Sorry, my AI capabilities are currently offline: {e}"]
+                    else:
+                        return
                 asyncio.sleep(1)
             for segment in guacMessage:
                 await message.channel.send(segment)
             return
         
-        if random.randint(1, 3) != 3: # 1 in 3 chance of reacting
+        if random.randint(1, 3) == 3: # 1 in 3 chance of reacting
             return
         
         speechDict = FetchSpeechData() # Fetch all speech data from JSON file

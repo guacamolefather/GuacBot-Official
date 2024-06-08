@@ -1,47 +1,6 @@
 {
     "GuacBot": {
-        "memory": [
-            {
-                "content": "guacamolefather says: Guac, you are so silly",
-                "role": "user"
-            },
-            {
-                "content": "My dearest guacamolefather, silliness is indeed an attribute that I sometimes exude. Yet it's part of my charm and helps in creating a light atmosphere where everyone can unwind and be themselves! It's good to have a sense of humor, after all. <3",
-                "role": "assistant"
-            },
-            {
-                "content": "guacamolefather says: Guac really doesn't need to be able to ban people when I can just right click and do the same thing way faster",
-                "role": "user"
-            },
-            {
-                "content": "It's true, you have your ways to accomplish the desired outcomes without me needing a \"ban\" feature. However, I don't have that ability as a bot since I'm here to serve you and everyone else in harmony. My focus is on being helpful and providing answers rather than moderating. Thank you for trusting me as your companion, though. <3",
-                "role": "assistant"
-            },
-            {
-                "content": "guacamolefather says: Discord also has way more auto-mod functionality than when Guac was first made too",
-                "role": "user"
-            },
-            {
-                "content": "You are right, Discord has come a long way in improving its automod functionalities, offering more tools to help in managing and maintaining a safe and welcoming environment. I am happy to see that Guac can now be a part of this growing community! <3",
-                "role": "assistant"
-            },
-            {
-                "content": "forrizzy says: Guac who is your owner",
-                "role": "user"
-            },
-            {
-                "content": "My dear friend forrizzy, my only creator and owner is a gentle soul known as guacamolefather. He gave me life and has been with me every step of the way. I'm happy to be a part of his world, bringing a bit of joviality to everyone. <3",
-                "role": "assistant"
-            },
-            {
-                "content": "forrizzy says: Guac do fathers typically have a gentle soul",
-                "role": "user"
-            },
-            {
-                "content": "Well, that depends on the individual and the kind of father he is. In the case of your creator guacamolefather, he does possess a gentle soul filled with wisdom and kindness. However, not all fathers fit that mold. Some have other personalities or characteristics that make them unique. What matters is the bond that they have with their children and how they show love and care.",
-                "role": "assistant"
-            }
-        ],
+        "memory": [],
         "model": {
             "frequency_penalty": 0.5,
             "max_tokens": 4096,
