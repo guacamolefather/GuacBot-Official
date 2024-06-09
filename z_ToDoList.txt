@@ -1,12 +1,8 @@
 Pending tasks:
 - Implement command to omit certain reactions from Guac's list (for a server)
 - Implement the rest of economy
-- Add SadBot personality to brain JSON 👀
 - Implement role blacklisting commands to disallow certain roles from talking to GuacBot
-- Add @discord.guild_only() decorator to applicable commands
-- Look into whether sending a message then editing it after the work is done is a possible fix
-- Put back prefix commands, but don't make them accessible (to keep people using slash commands)
-- Let GuacBot randomly react to messages?
-- Fix bug where Guac decides he doesn't need server data anymore (he does)
 - Back up server data so that when Guac loading it fails, he just copies the backup to the main file and tries again. Successful runs copy the current server data to the backup file.
-- Add time permeance to Guac
+- Set up a system similar to premade reactions that will look for keywords (Guac, Salsa, etc) and use the appropriate personality accordingly, so that more can be added (SadBot?)
+- Use NLPs to determine when personality reaches "weirdness event horizon" and automatically wipes its own memory.
+- Use NLPs to determine when personality is being spoken to without need for keyword? (would probably replace random responses and proposed new system)

@@ -24,6 +24,7 @@ class Admin(commands.Cog):
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
     @admin.command(description="Gets rid of a specified amount of messages.") # Slash command for clearing messages
     @discord.default_permissions(manage_messages=True) # User needs to have manage messages permission
+    @discord.guild_only() # Only works in guilds
     async def clear_messages(self, ctx, amount: int):
         await ctx.respond(f"Clearing {amount} messages...", ephemeral=True)
         time.sleep(1)
@@ -32,6 +33,7 @@ class Admin(commands.Cog):
 
     @admin.command(description="Steals the given custom emoji for the server.") # Slash command for stealing an emoji
     @discord.default_permissions(manage_emojis=True) # Only full admins can use this command
+    @discord.guild_only() # Only works in guilds
     async def steal_emoji(self, ctx, *, emoji):
 
         if not emoji.startswith("<"):
@@ -62,6 +64,7 @@ class Admin(commands.Cog):
 
 
     @admin.command(description="Returns server data on the user.") # Slash command for returning server data on the user
+    @discord.guild_only() # Only works in guilds
     async def profile(self, ctx, member: discord.Member):
         botData = FetchBotData()
         serverData = FetchServerData()
@@ -119,13 +122,14 @@ class Admin(commands.Cog):
         if (isBanned):
             embed.add_field(name="Reactions status:",value=f"Banned {how}",inline=False)
         else:
-            embed.add_field(name="Reactions status:",value="Available! Feel free to talk to me :)",inline=False)
+            embed.add_field(name="Reactions status:",value="Available! Feel free to talk to me (GuacBot) :)",inline=False)
 
         await ctx.respond(embed=embed, ephemeral=True)
 
 
     @admin.command(description="Counts the amount of people with certain roles.") # Slash command for counting the amount of people with certain roles
     @discord.default_permissions(manage_roles=True) # Only full admins can use this command
+    @discord.guild_only() # Only works in guilds
     async def role_count(self, ctx):
         withrole = 0
         memberswithrole = ""

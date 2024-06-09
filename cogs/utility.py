@@ -50,6 +50,7 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
             await ctx.respond("Just a custom emoji, pls.", ephemeral=True)
     
     @utility.command(description="Shows total + human + online/DND member count.") # Slash command for showing how many members are in the server
+    @discord.guild_only()
     async def role_call(self, ctx):
         notbots = 0
         online = 0
@@ -72,6 +73,7 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
         await ctx.respond(embed=embed)
         
     @utility.command(description="Returns server data on the user.") # Slash command for returning server data on the user
+    @discord.guild_only()
     async def profile(self, ctx):
         botData = FetchBotData()
         serverData = FetchServerData()
@@ -130,7 +132,7 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
         if (isBanned):
             embed.add_field(name="Reactions status:",value=f"Banned {how}",inline=False)
         else:
-            embed.add_field(name="Reactions status:",value="Available! Feel free to talk to me :)",inline=False)
+            embed.add_field(name="Reactions status:",value="Available! Feel free to talk to me (GuacBot) :)",inline=False)
 
         # Admin profile notification:
         embed.add_field(name="Regular profile",value="This is the regular profile command. For the admin command (other user), use /adminprofile (with admin priviledges).", inline=False)
@@ -138,6 +140,7 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
         await ctx.respond(embed=embed)
 
     @utility.command(description="Shows info about a role.") # Slash command for showing info about a role
+    @discord.guild_only()
     async def role_info(self, ctx, role: discord.Role):
         embed = discord.Embed(title=f"{role.name}", description="Role data:", colour=role.color, url="https://github.com/guacamolefather?tab=repositories")
         embed.set_thumbnail(url=role.guild.icon.url)

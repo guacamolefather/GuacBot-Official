@@ -14,9 +14,11 @@ def DIDAIMessage(message, sender, personality):
 
     brainData = FetchBrainData() # Fetch all AI data
     
-    messages = brainData[personality]["personality"] # Add personality specific memory
-    brainData[personality]["memory"].append({"role": "user", "content": f"{name} says: {message}"}) # Add most recent message to memory
-    messages = messages + brainData[personality]["memory"] # Combine personality with memory
+    current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
+    messages = brainData[personality]["core-memory"] # Add personality specific memory
+    brainData[personality]["mod-memory"].append({"role": "user", "content": f"{current_time} - {name} says: {message}"}) # Add most recent message to memory
+    messages = messages + brainData[personality]["mod-memory"] # Combine personality with memory
     
     payload = {"messages" : messages} # Put all messages into payload
     payload.update(brainData[personality]["model"]) # Add model information to payload
@@ -31,16 +33,17 @@ def DIDAIMessage(message, sender, personality):
     result = response.json()
     content = result['choices'][0]['message']['content']
     
-    if len(brainData[personality]["memory"]) > 10: # If memory is too long, remove the oldest messages
-        brainData[personality]["memory"].pop(0)
-        brainData[personality]["memory"].pop(0)
-    brainData[personality]["memory"].append({"role": "assistant", "content": content}) # Add Guac/Salsa's response to collective memory
+    if len(brainData[personality]["mod-memory"]) > 10: # If memory is too long, remove the oldest messages
+        brainData[personality]["mod-memory"].pop(0)
+        brainData[personality]["mod-memory"].pop(0)
+    brainData[personality]["mod-memory"].append({"role": "assistant", "content": content}) # Add Guac/Salsa's response to collective memory
     UpdateBrainData(brainData)
     
     return content
 
 botData = FetchBotData()
 serverData = FetchServerData()
+brainData = FetchBrainData()
 
 class Reaction(commands.Cog):
     def __init__(self, bot):
@@ -54,6 +57,7 @@ class Reaction(commands.Cog):
     async def on_message(self, message):
         botData = FetchBotData()
         serverData = FetchServerData()
+        brainData = FetchBrainData()
 
         lowerMessage = message.content.lower()
         if "not now, guac" == lowerMessage and message.author.id == 409445517509001216: # For Guac to be told to stop reacting temporarily
@@ -93,20 +97,25 @@ class Reaction(commands.Cog):
             if message.author.id == 409445517509001216 and lowerMessage == "delete":
                 await message.reference.resolved.delete()
                 return
-        
-        if (("guac" in lowerMessage or "salsa" in lowerMessage) or (random.randint(1, 10) == 7)) and str(message.guild.id) in botData["Reactions"]["server_whitelist"].keys(): # If the message is addressed to GuacBot or SalsAI and the server is AI whitelisted
-            personality = ""
+
+        ai_mentioned = False
+        triggered = ""
+        for personality in reversed(brainData.keys()):
+            for trigger in brainData[personality]["triggers"]:
+                if trigger in lowerMessage:
+                    ai_mentioned = True
+                    triggered = personality
+                    break
             
-            if (lowerMessage.find("guac") != -1 and lowerMessage.find("guac") < lowerMessage.find("salsa")) or lowerMessage.find("salsa") == -1:
-                personality = "GuacBot"
-            else:
-                personality = "SalsAI"
+        if (ai_mentioned or (random.randint(1, 10) == 7)) and str(message.guild.id) in botData["Reactions"]["server_whitelist"].keys(): # If the message is addressed to GuacBot or SalsAI and the server is AI whitelisted
+            if triggered == "":
+                triggered = "GuacBot"
             
             guacMessage = []
 
             async with message.channel.typing():
                 try:
-                    guacMessage = charLimit(DIDAIMessage(message.content, message.author, personality))
+                    guacMessage = charLimit(DIDAIMessage(message.content, message.author, triggered))
                 except Exception as e:
                     if ("guac" in lowerMessage or "salsa" in lowerMessage):
                         guacMessage = [f"Sorry, my AI capabilities are currently offline: {e}"]
@@ -121,7 +130,7 @@ class Reaction(commands.Cog):
             return
         
         speechDict = FetchSpeechData() # Fetch all speech data from JSON file
-
+        
         punc = '''!()-[]{};:'"\, <>./?@#$%^&*_~'''
         uPM = message.content.lower() # Remove punctuation from message (unPunctuatedMessage)
         for char in uPM: 

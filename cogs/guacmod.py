@@ -24,11 +24,13 @@ class GuacMod(commands.Cog): # Commands for moderating GuacBot
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
     @guac.command(description="Shows the json data for the server.") # Slash command for showing the json data for the server
     @discord.default_permissions(administrator=True) # Only full admins can use this command
+    @discord.guild_only()
     async def guild_data(self, ctx):
         await ctx.respond(serverData[str(ctx.guild.id)])
 
     @guac.command(description="Blacklists the specified member from reactions.") # Slash command for server blacklisting a member from reactions
     @discord.default_permissions(administrator=True) # Only full admins can use this command
+    @discord.guild_only()
     async def blacklist(self, ctx, member : discord.Member):
         if member.id in serverData[str(ctx.guild.id)]["Reactions"]["blacklist"]:
             await ctx.respond(f"{member.display_name} already blacklisted for reactions.")
@@ -39,6 +41,7 @@ class GuacMod(commands.Cog): # Commands for moderating GuacBot
 
     @guac.command(description="Unblacklists the specified member from reactions.") # Slash command for server unblacklisting a member from reactions
     @discord.default_permissions(administrator=True) # Only full admins can use this command
+    @discord.guild_only()
     async def unblacklist(self, ctx, member : discord.Member):
         indexingPurposes = serverData[str(ctx.guild.id)]["Reactions"]["blacklist"]
         if member.id not in indexingPurposes:
@@ -50,6 +53,7 @@ class GuacMod(commands.Cog): # Commands for moderating GuacBot
 
     @guac.command(description="Flips whether GuacBot reacts to bots.")
     @discord.default_permissions(administrator=True) # Only full admins can use this command
+    @discord.guild_only()
     async def bot_reaction_switch(self, ctx):
         duplicationPurposes = serverData[str(ctx.guild.id)]["Reactions"]["reactions"]
         serverData[str(ctx.guild.id)]["Reactions"]["reactions"] = not duplicationPurposes
@@ -58,6 +62,7 @@ class GuacMod(commands.Cog): # Commands for moderating GuacBot
 
     @guac.command(description="Flips whether GuacBot reactions are on.")
     @discord.default_permissions(administrator=True) # Only full admins can use this command
+    @discord.guild_only()
     async def all_reaction_switch(self, ctx):
         duplicationPurposes = serverData[str(ctx.guild.id)]["Reactions"]["reactions"]
         serverData[str(ctx.guild.id)]["Reactions"]["reactions"] = not duplicationPurposes
@@ -66,6 +71,7 @@ class GuacMod(commands.Cog): # Commands for moderating GuacBot
 
     @guac.command(description="Flips whether GuacBot is allowing gambling.")
     @discord.default_permissions(administrator=True) # Only full admins can use this command
+    @discord.guild_only()
     async def economy_switch(self, ctx):
         duplicationPurposes = serverData[str(ctx.guild.id)]["Economy"]["economy"]
         serverData[str(ctx.guild.id)]["Economy"]["economy"] = not duplicationPurposes

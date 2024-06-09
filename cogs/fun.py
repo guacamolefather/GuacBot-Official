@@ -63,7 +63,7 @@ class Fun(commands.Cog): # THE COG ALL ABOUT HAVING FUN (kinda depracated)
         try:
             await ctx.channel.purge(limit=1)
         except:
-            return
+            await ctx.send("No more prefix commands here...")
         await ctx.send("SHH!!!", delete_after=3)
 
     #https://minecraft.fandom.com/wiki/Death_messages
