@@ -75,7 +75,7 @@ class Reaction(commands.Cog):
         if message.author == self.bot.user: # If Guac is the author of the message
             return
         
-        if message.author.id in botData["Reactions"]["global_blacklist"].keys(): # If the author is globally blacklisted
+        if str(message.author.id) in botData["Reactions"]["global_blacklist"].keys(): # If the author is globally blacklisted
             return
         
         try:
@@ -107,25 +107,33 @@ class Reaction(commands.Cog):
                     triggered = personality
                     break
             
-        if (ai_mentioned or (random.randint(1, 10) == 7)) and str(message.guild.id) in botData["Reactions"]["server_whitelist"].keys(): # If the message is addressed to GuacBot or SalsAI and the server is AI whitelisted
+        if (ai_mentioned or (random.randint(1, 50 - botData["Reactions"]["random_limiter"]) == 1)) and str(message.guild.id) in botData["Reactions"]["server_whitelist"].keys(): # If the message is addressed to GuacBot or SalsAI and the server is AI whitelisted
+            if botData["Reactions"]["random_limiter"] == 49 or not ai_mentioned:
+                botData["Reactions"]["random_limiter"] = 0
+                UpdateBotData(botData)
+
             if triggered == "":
                 triggered = "GuacBot"
             
             guacMessage = []
 
-            async with message.channel.typing():
-                try:
+            if ai_mentioned:
+                async with message.channel.typing():
                     guacMessage = charLimit(DIDAIMessage(message.content, message.author, triggered))
-                except Exception as e:
-                    if ("guac" in lowerMessage or "salsa" in lowerMessage):
-                        guacMessage = [f"Sorry, my AI capabilities are currently offline: {e}"]
-                    else:
-                        return
-                asyncio.sleep(1)
+                    await asyncio.sleep(1)
+            else:
+                guacMessage = charLimit(DIDAIMessage(message.content, message.author, triggered))
+                if guacMessage[0] == "Sorry, my AI capabilities are currently offline. Please try again later.":
+                    return
+            
             for segment in guacMessage:
                 await message.channel.send(segment)
             return
         
+        if botData["Reactions"]["random_limiter"] < 49:
+            botData["Reactions"]["random_limiter"] += 1
+            UpdateBotData(botData)
+
         if random.randint(1, 3) == 3: # 1 in 3 chance of reacting
             return
         
@@ -246,7 +254,7 @@ class Reaction(commands.Cog):
             botData["Reactions"]["global_blacklist"].append(message.author.id)
             UpdateBotData(botData)
             await message.channel.send(f"{message.author.mention}, you have been deemed up to no good and are now global banned from my services. DM @guacamolefather if you believe this is a mistake.")
-        else:
+        elif len(reactions) > 0:
             reaction = reactions[random.randint(0, len(reactions) - 1)]
             for segment in charLimit(reaction):
                 await message.channel.send(segment)

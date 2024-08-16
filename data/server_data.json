@@ -100,7 +100,7 @@
         "Reactions": {
             "blacklist": [],
             "botreactions": false,
-            "reactions": true,
+            "reactions": false,
             "roleblacklist": []
         }
     },

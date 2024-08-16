@@ -3,6 +3,12 @@ Pending tasks:
 - Implement the rest of economy
 - Implement role blacklisting commands to disallow certain roles from talking to GuacBot
 - Back up server data so that when Guac loading it fails, he just copies the backup to the main file and tries again. Successful runs copy the current server data to the backup file.
-- Set up a system similar to premade reactions that will look for keywords (Guac, Salsa, etc) and use the appropriate personality accordingly, so that more can be added (SadBot?)
 - Use NLPs to determine when personality reaches "weirdness event horizon" and automatically wipes its own memory.
 - Use NLPs to determine when personality is being spoken to without need for keyword? (would probably replace random responses and proposed new system)
+- Make it so that replies to Guac are treated as triggers
+- Make responses actually reply to the message they respond to for clarification purposes
+- Make sure that all server-specific actions are accounted for in private DMs
+- Add a check that looks for if Guac is trying to send more than x messages and wipe his memory if so? (Possible "fix" for going coocoo for coco puffs)
+- Let people give me their social security number so Guac can tell them happy birthday
+- Give bots more messages per interaction (previous 10 or so messages), refine prompt so that they are only supposed to respond to the last message sent (rest are for context), and do prompt engineering research to see if bots can be improved with better instructions
+- Add a list of people Guac has met and respond accordingly?

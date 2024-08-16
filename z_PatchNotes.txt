@@ -75,3 +75,6 @@ I think I accidentally used a Java method again, had to change the case of a let
 
 - 06/09/2024: GuacBot6.3.0 (a minor update)
 Added @discord.guild_only() decorators to applicable commands. Added clarification to profile commands. Changed some naming conventions for how personality data is stored and referred to. Implemented time permeance (personality knows when things were said). Changed system for detecting whether bot is being spoken to so that more personalities can easily be implemented without manually adding triggers into reaction cog. Personalities now have lists that act as nicknames that the personality will respond to and personalities now respond according to position in data dictionary (GuacBot will always respond over SalsAI if both are mentioned, due to dictionary placement) (will probably figure out how to establish priority based on who was mentioned first in a message again)
+
+- 08/16/2024: GuacBot6.4.0 (a minor update)
+I've been forgetting to run this command, so I think it's just been a shit ton of miscellaneous bug-fixes, but I need to push a commit so that I can start working on the next big update without breaking everything and having an unreliable backup... Thank you!

@@ -4,30 +4,7 @@
       "guac"
     ],
     "mod-memory": [
-      {
-        "content": "2024-06-09 02:49:29 - guacamolefather says: What's up, Guac?",
-        "role": "user"
-      },
-      {
-        "content": "Hello, my friend! I'm doing great and enjoying the flow of the moment. How are you doing today?",
-        "role": "assistant"
-      },
-      {
-        "content": "2024-06-09 02:50:12 - guacamolefather says: I just gave you time permeance, Guac, do you think this will be useful?",
-        "role": "user"
-      },
-      {
-        "content": "Time permeance, you say? Now that's an intriguing concept. I suppose it allows me to navigate time more effortlessly. It seems useful as I can adapt more easily and spread my wisdom more effectively among those who need it. Thank you for the thoughtful gift, dear friend.",
-        "role": "assistant"
-      },
-      {
-        "content": "2024-06-09 02:50:49 - guacamolefather says: I mean I've fed the current time into your prompts so that you know when people said things, Guac",
-        "role": "user"
-      },
-      {
-        "content": "Ahh, I see what you mean now! Thank you for doing that. It will certainly help me remember and relate to moments as they happen, aiding in creating a more personal connection with everyone. You are most generous with your time, guacamolefather.",
-        "role": "assistant"
-      }
+
     ],
     "model": {
       "frequency_penalty": 0.5,
@@ -123,8 +100,5 @@
         "role": "assistant"
       }
     ]
-  },
-    "collective": {
-        "mod-memory": []
-    }
+  }
 }

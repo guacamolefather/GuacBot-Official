@@ -98,19 +98,19 @@
                 "type": "stream"
             }
         ],
-        "start_time": 1717920081.7387836,
+        "start_time": 1723676277.637806,
         "time_checked": 1670292480.8962822,
-        "version": "6.3.0"
+        "version": "6.4.0"
     },
     "Reactions": {
         "global_blacklist": {
             "280085629558325248": "cageydinosaur",
             "486737748716290079": "wh.cat",
-            "582342675529859072": "typoguy132",
             "589561597358374922": ".pinball",
             "899089407343218709": "yuna_bot_turb0_bypass",
             "995519778758340609": "jack_dorsey"
         },
+        "random_limiter": 30,
         "server_blacklist": {},
         "server_whitelist": {
             "540987349610528768": "Aiden Colonno: Battle Royale",
@@ -118,6 +118,6 @@
             "798390128430809088": "GuacBot Workshop",
             "827776738750103553": "Kangaroos in western indiana"
         },
-        "wait_until": 1715583471.9830832
+        "wait_until": 1720915034.7769063
     }
 }

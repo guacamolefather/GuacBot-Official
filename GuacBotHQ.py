@@ -52,7 +52,7 @@ async def on_command_error(ctx, error): # Error handling for commands and variou
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MY HQ COMMANDS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 @bot.command() # Command to display that there are no more prefix commands
 async def help(ctx):
-    if not is_it_me:
+    if not ctx.author.id == 409445517509001216:
         await ctx.respond("No more prefix commands here! You are welcome to use my slash commands though :)")
     else:
         await ctx.respond("```$die\n$restart\n$refresh_server_data\n$load [cog]\n$unload [cog]\n$reload [cog]\n$change_status  [listen/watch/stream/custom/(blank for play)] [status]\n$global_blacklist [member]\n$global_unblacklist [member]\n$read_blacklist\n$locate_id [member id]\n$ping\n$wipe_brain [personality]\n$to_do [task]\n$fetch_to_do\n$patch [major/minor/misc] [info]\n$nickname [addition]```")
@@ -183,7 +183,7 @@ async def change_status():
     if activityType == "game":
         await bot.change_presence(activity=discord.Game(activityText)) # Changes the bot's status to "Playing {activityText}"
     elif activityType == "stream":
-        await bot.change_presence(activity=discord.Streaming(name=activityText, url="https://www.twitch.tv/thememesareallreal")) # Changes the bot's status to "Streaming {activityText}"
+        await bot.change_presence(activity=discord.Streaming(name=activityText, url="https://www.twitch.tv/guacamolefather")) # Changes the bot's status to "Streaming {activityText}"
     elif activityType == "watch":
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=activityText)) # Changes the bot's status to "Watching {activityText}"
     elif activityType == "listen":
