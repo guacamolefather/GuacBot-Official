@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "E:\\GitHub\\GuacBot-Official\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\GitHub\\GuacBot-Official\\data\\server_data.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\server_data.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\GitHub\\GuacBot-Official\\GuacBotHQ.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GuacBotHQ.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\GitHub\\GuacBot-Official\\cogs\\reaction.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:cogs\\reaction.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\GitHub\\GuacBot-Official\\data\\DID_data.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\DID_data.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,19 +27,41 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "server_data.json",
-              "DocumentMoniker": "E:\\GitHub\\GuacBot-Official\\data\\server_data.json",
-              "RelativeDocumentMoniker": "data\\server_data.json",
-              "ToolTip": "E:\\GitHub\\GuacBot-Official\\data\\server_data.json",
-              "RelativeToolTip": "data\\server_data.json",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-07-30T20:23:26.898Z",
+              "Title": "GuacBotHQ.py",
+              "DocumentMoniker": "E:\\GitHub\\GuacBot-Official\\GuacBotHQ.py",
+              "RelativeDocumentMoniker": "GuacBotHQ.py",
+              "ToolTip": "E:\\GitHub\\GuacBot-Official\\GuacBotHQ.py",
+              "RelativeToolTip": "GuacBotHQ.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2024-08-16T08:21:04.127Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "reaction.py",
+              "DocumentMoniker": "E:\\GitHub\\GuacBot-Official\\cogs\\reaction.py",
+              "RelativeDocumentMoniker": "cogs\\reaction.py",
+              "ToolTip": "E:\\GitHub\\GuacBot-Official\\cogs\\reaction.py",
+              "RelativeToolTip": "cogs\\reaction.py",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAAwIsAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2024-08-16T07:24:59.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DID_data.json",
+              "DocumentMoniker": "E:\\GitHub\\GuacBot-Official\\data\\DID_data.json",
+              "RelativeDocumentMoniker": "data\\DID_data.json",
+              "ToolTip": "E:\\GitHub\\GuacBot-Official\\data\\DID_data.json",
+              "RelativeToolTip": "data\\DID_data.json",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAGcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-16T07:00:57.292Z",
+              "EditorCaption": ""
             }
           ]
         }

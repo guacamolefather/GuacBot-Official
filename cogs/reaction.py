@@ -3,42 +3,49 @@ from cogs.extraclasses.avocado import * # The infamous pineapple
 from discord.ext import commands
 import random, time, json, discord, requests, asyncio
 
-def DIDAIMessage(message, sender, personality):
-    url = "http://localhost:1337/v1/chat/completions"
-    headers = {
-        "Content-Type": "application/json",
-    }
-    name = sender.name
-    if sender.id == 562372596008484875: # For Auntie
+def DIDAIMessage(message, personality, sending_message):
+    name = message.author.name
+    if message.author.id == 562372596008484875: # For Auntie
         name = "Sophie"
 
     brainData = FetchBrainData() # Fetch all AI data
     
     current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
-    messages = brainData[personality]["core-memory"] # Add personality specific memory
-    brainData[personality]["mod-memory"].append({"role": "user", "content": f"{current_time} - {name} says: {message}"}) # Add most recent message to memory
-    messages = messages + brainData[personality]["mod-memory"] # Combine personality with memory
+    content = "Sorry, something must have gone wrong. Please try again later."
+
+    if sending_message:
+        messages = brainData[personality]["core-memory"] # Add personality specific memory
+        brainData[personality]["mod-memory"].append({"role": "user", "content": f"{current_time} - {message.guild} server in the #{message.channel} channel - {name} says: {message.content}"}) # Add most recent message to memory
+        messages = messages + brainData[personality]["mod-memory"] # Combine personality with memory
     
-    payload = {"messages" : messages} # Put all messages into payload
-    payload.update(brainData[personality]["model"]) # Add model information to payload
+        payload = {"messages" : messages} # Put all messages into payload
+        payload.update(brainData[personality]["model"]) # Add model information to payload
         
-    # Try to make the request and proceed accordingly
-    try:
-        response = requests.post(url, headers=headers, data=json.dumps(payload))
-    except:
-        return "Sorry, my AI capabilities are currently offline. Please try again later."
+        # Try to make the request and proceed accordingly
+        try:
+            url = "http://localhost:1337/v1/chat/completions"
+            headers = {
+                "Content-Type": "application/json",
+            }
+            response = requests.post(url, headers=headers, data=json.dumps(payload))
+        except:
+            return "Sorry, my AI capabilities are currently offline. Please try again later."
         
-    # Extracting 'content' value from response and updating Guac's memory
-    result = response.json()
-    content = result['choices'][0]['message']['content']
+        # Extracting 'content' value from response and updating Guac's memory
+        result = response.json()
+        content = result['choices'][0]['message']['content']
+
+        brainData[personality]["mod-memory"].append({"role": "assistant", "content": content}) # Add Guac/Salsa's response to collective memory
+
+    else:
+        brainData[personality]["mod-memory"].append({"role": "user", "content": f"{current_time} - {message.guild} server in the #{message.channel} channel - {name} says: {message.content}"}) # Add most recent message to memory
     
-    if len(brainData[personality]["mod-memory"]) > 10: # If memory is too long, remove the oldest messages
+    if len(brainData[personality]["mod-memory"]) > 20: # If memory is too long, remove the oldest messages
         brainData[personality]["mod-memory"].pop(0)
         brainData[personality]["mod-memory"].pop(0)
-    brainData[personality]["mod-memory"].append({"role": "assistant", "content": content}) # Add Guac/Salsa's response to collective memory
+
     UpdateBrainData(brainData)
-    
     return content
 
 botData = FetchBotData()
@@ -66,7 +73,7 @@ class Reaction(commands.Cog):
             await message.channel.send("Sorry, I'll be back in five...")
             return
 
-        if message.content.startswith("$"):
+        if message.content.startswith("$") and message.author.id == 409445517509001216:
             return
 
         if botData["Reactions"]["wait_until"] > time.time(): # If Guac was told to stop reacting temporarily
@@ -119,16 +126,18 @@ class Reaction(commands.Cog):
 
             if ai_mentioned:
                 async with message.channel.typing():
-                    guacMessage = charLimit(DIDAIMessage(message.content, message.author, triggered))
+                    guacMessage = charLimit(DIDAIMessage(message, triggered, True))
                     await asyncio.sleep(1)
             else:
-                guacMessage = charLimit(DIDAIMessage(message.content, message.author, triggered))
+                guacMessage = charLimit(DIDAIMessage(message, triggered, True))
                 if guacMessage[0] == "Sorry, my AI capabilities are currently offline. Please try again later.":
                     return
             
             for segment in guacMessage:
                 await message.channel.send(segment)
             return
+        else:
+            DIDAIMessage(message, "GuacBot", False)
         
         if botData["Reactions"]["random_limiter"] < 49:
             botData["Reactions"]["random_limiter"] += 1

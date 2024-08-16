@@ -98,9 +98,9 @@
                 "type": "stream"
             }
         ],
-        "start_time": 1723676277.637806,
+        "start_time": 1723798144.890143,
         "time_checked": 1670292480.8962822,
-        "version": "6.4.0"
+        "version": "7.0.0"
     },
     "Reactions": {
         "global_blacklist": {
@@ -110,7 +110,7 @@
             "899089407343218709": "yuna_bot_turb0_bypass",
             "995519778758340609": "jack_dorsey"
         },
-        "random_limiter": 30,
+        "random_limiter": 0,
         "server_blacklist": {},
         "server_whitelist": {
             "540987349610528768": "Aiden Colonno: Battle Royale",

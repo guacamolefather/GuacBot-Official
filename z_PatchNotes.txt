@@ -78,3 +78,6 @@ Added @discord.guild_only() decorators to applicable commands. Added clarificati
 
 - 08/16/2024: GuacBot6.4.0 (a minor update)
 I've been forgetting to run this command, so I think it's just been a shit ton of miscellaneous bug-fixes, but I need to push a commit so that I can start working on the next big update without breaking everything and having an unreliable backup... Thank you!
+
+- 08/16/2024: GuacBot7.0.0 (a major update)
+Guac's system instructions have been edited to hopefully improve his chatbot functionality but are still WIP and will likely be edited to make sure I didn't mess anything up (please let me know if he's being weird). I've made it so that the last 20 (arbitrary number) messages Guac has seen (with various filters) are all saved and rotated through until he is triggered purposely or randomly and he will respond using the previous 19 messages as context. He now sees which server and channel a message was sent in, which should also help with contextualization. SalsAI has been temporarily disabled to ensure this works correctly (and for lack of use).
