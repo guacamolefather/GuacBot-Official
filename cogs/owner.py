@@ -106,7 +106,7 @@ class Owner(commands.Cog): # Commands just for me :)
     async def wipe_brain(self, ctx, personality: str):
         if personality == "GuacBot" or personality == "SalsAI":
             brainData = FetchBrainData()
-            brainData[personality]["memory"] = []
+            brainData[personality]["mod-memory"] = []
             UpdateBrainData(brainData)
             await ctx.respond(f"{personality}'s memory wiped!", ephemeral=True)
         else:
