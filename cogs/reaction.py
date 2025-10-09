@@ -1,6 +1,7 @@
 from cogs.extraclasses.jason import * # JSON file handling
 from cogs.extraclasses.avocado import * # The infamous pineapple
 from discord.ext import commands
+from llama_cpp import Llama
 import random, time, json, discord, requests, asyncio
 
 def DIDAIMessage(message, personality, sending_message):
@@ -14,36 +15,40 @@ def DIDAIMessage(message, personality, sending_message):
 
     content = "Sorry, something must have gone wrong. Please try again later."
 
+    for loop_personality in brainData.keys():
+            brainData[loop_personality]["mod-memory"].append({"role": "user", "content": f"{current_time} - {message.guild} server in the #{message.channel} channel - {name} says: {message.content}"}) # Add most recent message to memory
+
     if sending_message:
         messages = brainData[personality]["core-memory"] # Add personality specific memory
-        brainData[personality]["mod-memory"].append({"role": "user", "content": f"{current_time} - {message.guild} server in the #{message.channel} channel - {name} says: {message.content}"}) # Add most recent message to memory
-        messages = messages + brainData[personality]["mod-memory"] # Combine personality with memory
-    
-        payload = {"messages" : messages} # Put all messages into payload
-        payload.update(brainData[personality]["model"]) # Add model information to payload
+        messages = messages + brainData[personality]["mod-memory"] # Combine personality memory with contemporary memory
         
         # Try to make the request and proceed accordingly
         try:
-            url = "http://localhost:1337/v1/chat/completions"
-            headers = {
-                "Content-Type": "application/json",
-            }
-            response = requests.post(url, headers=headers, data=json.dumps(payload))
+            model_path = "E:/GuacData/models/" + brainData[personality]["model-info"]["model"]
+            
+            llm = Llama(model_path=model_path,
+                        n_gpu_layers=brainData[personality]["model-info"]["gpu-layers"],
+                        n_ctx=brainData[personality]["model-info"]["context-size"],
+                        seed=random.random())
+
+            response = llm.create_chat_completion(messages=messages)
         except:
             return "Sorry, my AI capabilities are currently offline. Please try again later."
         
         # Extracting 'content' value from response and updating Guac's memory
-        result = response.json()
+        result = response
         content = result['choices'][0]['message']['content']
 
-        brainData[personality]["mod-memory"].append({"role": "assistant", "content": content}) # Add Guac/Salsa's response to collective memory
+        for loop_personality in brainData.keys():
+            if loop_personality == personality:
+                brainData[personality]["mod-memory"].append({"role": "assistant", "content": content}) # Add Guac/Salsa's response to their own contemporary memory
+            else:
+                brainData[loop_personality]["mod-memory"].append({"role": "user", "content": f"{current_time} - {message.guild} server in the #{message.channel} channel - {personality} says: {content}"}) # Add Guac/Salsa's response to other AIs' contemporary memory
 
-    else:
-        brainData[personality]["mod-memory"].append({"role": "user", "content": f"{current_time} - {message.guild} server in the #{message.channel} channel - {name} says: {message.content}"}) # Add most recent message to memory
-    
-    if len(brainData[personality]["mod-memory"]) > 20: # If memory is too long, remove the oldest messages
-        brainData[personality]["mod-memory"].pop(0)
-        brainData[personality]["mod-memory"].pop(0)
+    for loop_personality in brainData.keys():
+        if len(brainData[loop_personality]["mod-memory"]) > 20: # If memory is too long, remove the oldest messages
+            brainData[loop_personality]["mod-memory"].pop(0)
+            brainData[loop_personality]["mod-memory"].pop(0)
 
     UpdateBrainData(brainData)
     return content
@@ -148,7 +153,7 @@ class Reaction(commands.Cog):
         
         speechDict = FetchSpeechData() # Fetch all speech data from JSON file
         
-        punc = '''!()-[]{};:'"\, <>./?@#$%^&*_~'''
+        punc = r"""!()-[]{};:'"\, <>./?@#$%^&*_~"""
         uPM = message.content.lower() # Remove punctuation from message (unPunctuatedMessage)
         for char in uPM: 
             if char in punc:

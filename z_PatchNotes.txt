@@ -84,3 +84,9 @@ Guac's system instructions have been edited to hopefully improve his chatbot fun
 
 - 08/21/2024: GuacBot7.0.1 (a tiny update)
 Ongoing edits to Guac's system instructions. A small fix to make the $wipe_brain command work again
+
+- 10/09/2025: GuacBot8.0.0 (a major update)
+GuacBot no longer relies on Jan.AI! I've implemented the llama_cpp module in order to run the GGUF models ONLY when Guac is summoned (to preserve resources when not in use). llama_cpp functionality designed to be easily fitted with a GUI and/or website. All personalities now receive "mod-memory" context and can hear each other (as other user messages). Personality system prompts updated to work with new models. Other small bug fixes with more on the way.
+
+- 10/09/2025: GuacBot8.0.1 (a organization update)
+I have moved GuacBot's TOKEN and GGUF files to the top of the drive he's run on, so that I can actually commit him to GitHub... Also, got rid of the memory data backup, because it's redundant with GitHub.

@@ -12,3 +12,7 @@ Pending tasks:
 - Let people give me their social security number so Guac can tell them happy birthday
 - Add a list of people Guac has met and respond accordingly?
 - Make it so that interactions completely get rid of modifiable memory then replace it with the last X messages for Guac to respond to. (No more feedback loop and automatic context separation)
+- Give access to more context (I.E. what his current activity is)
+- Look into newer (less corporate sounding?) models
+- Look into adding an ability to use the internet to supplement contemporary responses
+- Make a local website to interact with and see status on Guac. Possibly host a website to show status and metrics?

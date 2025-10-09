@@ -21,13 +21,13 @@ async def on_ready(): # Tells OS the bot is ready, refreshes the json with serve
 async def on_guild_join(guild): # Refreshes the server data when the bot joins a server
     RefreshServerData(bot)
     channel = await bot.get_channel(1206496203768860693)
-    await channel.send(f"Joined a new server! {guild}") # Send the error to the bot's error channel
+    await channel.send(f"Joined a new server! {guild}") # Send the notification to the bot's audit log channel
 
 @bot.event
 async def on_guild_remove(guild): # Refreshes the server data when the bot leaves a server
     RefreshServerData(bot)
     channel = await bot.get_channel(1206496203768860693)
-    await channel.send(f"Left a server... {guild}") # Send the error to the bot's error channel
+    await channel.send(f"Left a server... {guild}") # Send the notification to the bot's audit log channel
 
 @bot.event
 async def on_command_error(ctx, error): # Error handling for commands and various fail states
