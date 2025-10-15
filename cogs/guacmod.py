@@ -1,11 +1,14 @@
-from cogs.extraclasses.jason import * # JSON file handling
-from cogs.extraclasses.avocado import * # The infamous pineapple
-from discord.commands import SlashCommandGroup
-from discord.ext import commands
 import discord
 
-botData = FetchBotData()
-serverData = FetchServerData()
+from discord.commands import SlashCommandGroup
+from discord.ext import commands
+
+from helper_classes.data import *
+
+
+jason = Jason()
+#bot_data = jason.fetchBotData()
+#server_data = jason.fetchServerData()
 
 class GuacMod(commands.Cog): # Commands for moderating GuacBot
 
@@ -26,57 +29,63 @@ class GuacMod(commands.Cog): # Commands for moderating GuacBot
     @discord.default_permissions(administrator=True) # Only full admins can use this command
     @discord.guild_only()
     async def guild_data(self, ctx):
-        await ctx.respond(serverData[str(ctx.guild.id)])
+        server_data = jason.fetchServerData()
+        await ctx.respond(server_data[str(ctx.guild.id)])
 
     @guac.command(description="Blacklists the specified member from reactions.") # Slash command for server blacklisting a member from reactions
     @discord.default_permissions(administrator=True) # Only full admins can use this command
     @discord.guild_only()
     async def blacklist(self, ctx, member : discord.Member):
-        if member.id in serverData[str(ctx.guild.id)]["Reactions"]["blacklist"]:
+        server_data = jason.fetchServerData()
+        if member.id in server_data[str(ctx.guild.id)]["reaction_cog"]["blacklist"]:
             await ctx.respond(f"{member.display_name} already blacklisted for reactions.")
             return
-        serverData[str(ctx.guild.id)]["Reactions"]["blacklist"].append(member.id)
-        UpdateServerData(serverData)
+        server_data[str(ctx.guild.id)]["reaction_cog"]["blacklist"].append(member.id)
+        jason.updateServerData(server_data)
         await ctx.respond(f"{member.display_name} blacklisted for reactions.")
 
     @guac.command(description="Unblacklists the specified member from reactions.") # Slash command for server unblacklisting a member from reactions
     @discord.default_permissions(administrator=True) # Only full admins can use this command
     @discord.guild_only()
     async def unblacklist(self, ctx, member : discord.Member):
-        indexingPurposes = serverData[str(ctx.guild.id)]["Reactions"]["blacklist"]
-        if member.id not in indexingPurposes:
+        server_data = jason.fetchServerData()
+        indexing_purposes = server_data[str(ctx.guild.id)]["reaction_cog"]["blacklist"]
+        if member.id not in indexing_purposes:
             await ctx.respond(f"{member.display_name} already not blacklisted for reactions.")
             return
-        serverData[str(ctx.guild.id)]["Reactions"]["blacklist"].pop(indexingPurposes.index(member.id))
-        UpdateServerData(serverData)
+        server_data[str(ctx.guild.id)]["reaction_cog"]["blacklist"].pop(indexing_purposes.index(member.id))
+        jason.updateServerData(server_data)
         await ctx.respond(f"{member.display_name} no longer blacklisted for reactions.")
 
     @guac.command(description="Flips whether GuacBot reacts to bots.")
     @discord.default_permissions(administrator=True) # Only full admins can use this command
     @discord.guild_only()
     async def bot_reaction_switch(self, ctx):
-        duplicationPurposes = serverData[str(ctx.guild.id)]["Reactions"]["reactions"]
-        serverData[str(ctx.guild.id)]["Reactions"]["reactions"] = not duplicationPurposes
-        UpdateServerData(serverData)
-        await ctx.respond(f"Reactions on: {not duplicationPurposes}")
+        server_data = jason.fetchServerData()
+        duplication_purposes = server_data[str(ctx.guild.id)]["reaction_cog"]["reactions"]
+        server_data[str(ctx.guild.id)]["reaction_cog"]["reactions"] = not duplication_purposes
+        jason.updateServerData(server_data)
+        await ctx.respond(f"Reactions on: {not duplication_purposes}")
 
     @guac.command(description="Flips whether GuacBot reactions are on.")
     @discord.default_permissions(administrator=True) # Only full admins can use this command
     @discord.guild_only()
     async def all_reaction_switch(self, ctx):
-        duplicationPurposes = serverData[str(ctx.guild.id)]["Reactions"]["reactions"]
-        serverData[str(ctx.guild.id)]["Reactions"]["reactions"] = not duplicationPurposes
-        UpdateServerData(serverData)
-        await ctx.respond(f"Reactions on: {not duplicationPurposes}")
+        server_data = jason.fetchServerData()
+        duplication_purposes = server_data[str(ctx.guild.id)]["reaction_cog"]["reactions"]
+        server_data[str(ctx.guild.id)]["reaction_cog"]["reactions"] = not duplication_purposes
+        jason.updateServerData(server_data)
+        await ctx.respond(f"Reactions on: {not duplication_purposes}")
 
     @guac.command(description="Flips whether GuacBot is allowing gambling.")
     @discord.default_permissions(administrator=True) # Only full admins can use this command
     @discord.guild_only()
     async def economy_switch(self, ctx):
-        duplicationPurposes = serverData[str(ctx.guild.id)]["Economy"]["economy"]
-        serverData[str(ctx.guild.id)]["Economy"]["economy"] = not duplicationPurposes
-        UpdateServerData(serverData)
-        await ctx.respond(f"Economy on: {not duplicationPurposes}")
+        server_data = jason.fetchServerData()
+        duplication_purposes = server_data[str(ctx.guild.id)]["economy_cog"]["economy"]
+        server_data[str(ctx.guild.id)]["economy_cog"]["economy"] = not duplication_purposes
+        jason.updateServerData(server_data)
+        await ctx.respond(f"Economy on: {not duplication_purposes}")
 
 def setup(bot):
     bot.add_cog(GuacMod(bot))

@@ -1,12 +1,13 @@
-﻿from re import M
-from cogs.extraclasses.jason import * # JSON file handling
-from cogs.extraclasses.avocado import * # The infamous pineapple
-from discord.commands import SlashCommandGroup
-from discord.ext import commands
-import discord, time
+﻿import discord, time
 
-botData = FetchBotData()
-serverData = FetchServerData()
+from discord.ext import commands
+
+from helper_classes.data import *
+
+
+jason = Jason()
+#bot_data = jason.fetchBotData()
+#server_data = jason.fetchServerData()
 
 class Owner(commands.Cog): # Commands just for me :)
 
@@ -49,33 +50,33 @@ class Owner(commands.Cog): # Commands just for me :)
     @commands.command(hidden=True, description="Globally Guac blacklists the specified member.") # Command for globally blacklisting a member
     @commands.check(is_it_me) # Only dad can use this command
     async def global_blacklist(self, ctx, member : discord.Member):
-        botData = FetchBotData()
+        bot_data = jason.fetchBotData()
         try:
-            botData["Reactions"]["global_blacklist"][f"{member.id}"] = member.name
+            bot_data["reaction_cog"]["global_blacklist"][f"{member.id}"] = member.name
         except:
             await ctx.respond("Member already on the global blacklist.", ephemeral=True)
             return
-        UpdateBotData(botData)
+        jason.updateBotData(bot_data)
         await ctx.respond(f"{member.name} now on Guac global blacklist.")
 
     @commands.command(hidden=True, description="Globally Guac unblacklists the specified member.") # Command for globally unblacklisting a member
     @commands.check(is_it_me) # Only dad can use this command
     async def global_unblacklist(self, ctx, member : discord.Member):
-        botData = FetchBotData()
+        bot_data = jason.fetchBotData()
         try:
-            del botData["Reactions"]["global_blacklist"][f"{member.id}"]
+            del bot_data["reaction_cog"]["global_blacklist"][f"{member.id}"]
         except:
             await ctx.respond("Member not on the global blacklist.", ephemeral=True)
             return
-        UpdateBotData(botData)
+        jason.updateBotData(bot_data)
         await ctx.respond(f"{member.name} bailed from Guac global blacklist :rolling_eyes:")
 
     @commands.command(hidden=True, description="Shows global blacklist.") # Command for showing the global blacklist
     @commands.check(is_it_me) # Only dad can use this command
     async def read_blacklist(self, ctx):
-        botData = FetchBotData()
+        bot_data = jason.fetchBotData()
         message = "Global blacklist:\n"
-        for loser in botData["Reactions"]["global_blacklist"].values():
+        for loser in bot_data["reaction_cog"]["global_blacklist"].values():
             message += f"- {loser}\n"
         await ctx.respond(message)
 
@@ -105,9 +106,9 @@ class Owner(commands.Cog): # Commands just for me :)
     @commands.check(is_it_me) # Only dad can use this command
     async def wipe_brain(self, ctx, personality: str):
         if personality == "GuacBot" or personality == "SalsAI":
-            brainData = FetchBrainData()
-            brainData[personality]["mod-memory"] = []
-            UpdateBrainData(brainData)
+            brain_data = jason.fetchBrainData()
+            brain_data[personality]["mod_memory"] = []
+            jason.updateBrainData(brain_data)
             await ctx.respond(f"{personality}'s memory wiped!", ephemeral=True)
         else:
             await ctx.respond("Invalid personality.", ephemeral=True)
@@ -124,52 +125,52 @@ class Owner(commands.Cog): # Commands just for me :)
         messages = await channel.history(limit=100).flatten()
         messages.reverse()
 
-        validReaction = False
-        todo_list = "Pending tasks:"
+        valid_reaction = False
+        to_do_list = "Pending tasks:"
         for message in messages:
             for reaction in message.reactions:
                 if (reaction.emoji == "❌" or reaction.emoji == "❔" or reaction.emoji == "✅"):
-                    validReaction = True
-            if not validReaction:
-                todo_list += f"\n{message.content}"
-            validReaction = False
-        for chunk in charLimit(todo_list):
+                    valid_reaction = True
+            if not valid_reaction:
+                to_do_list += f"\n{message.content}"
+            valid_reaction = False
+        for chunk in charLimit(to_do_list):
             await ctx.respond(chunk, ephemeral=True)
         
-        with open('z_ToDoList.txt', 'w', encoding='utf-8') as writer:
-            writer.write(todo_list)
-        writer.close()
+        with open('E:/guac_data/to_do_list.txt', 'w', encoding='utf-8') as writer:
+            writer.write(to_do_list)
+
         await ctx.respond("To-do list saved to file.", ephemeral=True)
     
-    @commands.command(hidden=True, description="Fetches pending to-do list items.") # Command for collecting unreacted messages in #guacbot-to-do
+    @commands.command(hidden=True, description="fetches pending to-do list items.") # Command for collecting unreacted messages in #guacbot-to-do
     @commands.check(is_it_me) # Only dad can use this command
     async def fetch_to_do(self, ctx):
         channel = self.bot.get_channel(813974138581942282)
         messages = await channel.history(limit=100).flatten()
         messages.reverse()
 
-        validReaction = False
-        todo_list = "Pending tasks:"
+        valid_reaction = False
+        to_do_list = "Pending tasks:"
         for message in messages:
             for reaction in message.reactions:
                 if (reaction.emoji == "❌" or reaction.emoji == "❔" or reaction.emoji == "✅"):
-                    validReaction = True
-            if not validReaction:
-                todo_list += f"\n{message.content}"
-            validReaction = False
-        for chunk in charLimit(todo_list):
+                    valid_reaction = True
+            if not valid_reaction:
+                to_do_list += f"\n{message.content}"
+            valid_reaction = False
+        for chunk in charLimit(to_do_list):
             await ctx.respond(chunk, ephemeral=True)
         
-        with open('z_ToDoList.txt', 'w', encoding='utf-8') as writer:
-            writer.write(todo_list)
-        writer.close()
+        with open('E:/guac_data/to_do_list.txt', 'w', encoding='utf-8') as writer:
+            writer.write(to_do_list)
+
         await ctx.respond("To-do list saved to file.", ephemeral=True)
 
     @commands.command(hidden=True, description="Updates the patch notes + version and sends them to the announcements channel.") # Command for updating the patch notes and version
     @commands.check(is_it_me) # Only dad can use this command
     async def patch(self, ctx, patch_type: str, *, patch_info: str):
-        
-        last_version = botData["HQ"]["version"]
+        bot_data = jason.fetchBotData()
+        last_version = bot_data["hq"]["version"]
         if patch_type.startswith("major"):
             split_version = last_version.split(".")
             new_version = f"{int(split_version[0]) + 1}.0.0"
@@ -180,8 +181,8 @@ class Owner(commands.Cog): # Commands just for me :)
             split_version = last_version.split(".")
             new_version = f"{split_version[0]}.{split_version[1]}.{int(split_version[2]) + 1}"
         
-        botData["HQ"]["version"] = new_version
-        UpdateBotData(botData)
+        bot_data["hq"]["version"] = new_version
+        jason.updateBotData(bot_data)
         
         current_date = time.strftime("%m/%d/%Y")
         patch = ""
@@ -190,9 +191,9 @@ class Owner(commands.Cog): # Commands just for me :)
         else:
             patch = f'- {current_date}: GuacBot{new_version} (a {patch_type} update)\n{patch_info}'
         
-        with open('z_PatchNotes.txt', 'a', encoding='utf-8') as writer:
+        with open('E:/guac_data/patch_notes.txt', 'a', encoding='utf-8') as writer:
             writer.write(f"\n\n{patch}")
-        writer.close()
+
 
         channel = self.bot.get_channel(1205982934255804417)
         await channel.send(f"{patch}")
@@ -202,9 +203,8 @@ class Owner(commands.Cog): # Commands just for me :)
     @commands.command(hidden=True, description="Adds a new nickname to the list.") # Command for adding a new nickname to the list
     @commands.check(is_it_me) # Only dad can use this command
     async def nickname(self, ctx, *, name: str):
-        with open('E:/z_Nicknames.txt', 'a', encoding='utf-8') as writer:
+        with open('E:/nicknames.txt', 'a', encoding='utf-8') as writer:
             writer.write(f"\n- {name}")
-        writer.close()
         
         await ctx.respond(f'Added "{name}" to the list!')
 

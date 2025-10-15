@@ -1,8 +1,8 @@
-from cogs.extraclasses.jason import * # JSON file handling
-from cogs.extraclasses.avocado import * # The infamous pineapple
+import discord, random
+
 from discord.commands import SlashCommandGroup
 from discord.ext import commands
-import discord, random
+
 
 class Fun(commands.Cog): # THE COG ALL ABOUT HAVING FUN (kinda depracated)
 
@@ -26,32 +26,32 @@ class Fun(commands.Cog): # THE COG ALL ABOUT HAVING FUN (kinda depracated)
 
     @fun.command(description="Rolls specified sided die a specified amount of times.") # Slash command for rolling a dice (or multiple)
     async def roll_dice(self, ctx, sides=6, amount=1):
-        diceList=[]
+        dice_list=[]
         for i in range(0, amount):
-            diceList.append(random.randint(1,sides))
+            dice_list.append(random.randint(1,sides))
             i = i + 1
-        await ctx.respond("Your roll(s) are:  " + str(diceList))
+        await ctx.respond("Your roll(s) are:  " + str(dice_list))
 
     @fun.command(description="Play a game of Rock, Paper, Scissors against Guac!") # Slash command for playing Rock, Paper, Scissors
     async def rock_paper_scissors(self, ctx, choice: str):
-        botchoice = random.randint(0, 2)
-        if botchoice == 0 and choice.lower() == "rock":
+        bot_choice = random.randint(0, 2)
+        if bot_choice == 0 and choice.lower() == "rock":
             await ctx.respond("I chose rock!  It's a tie!")
-        elif botchoice == 0 and choice.lower() == "paper":
+        elif bot_choice == 0 and choice.lower() == "paper":
             await ctx.respond("I chose rock! You win!")
-        elif botchoice == 0 and choice.lower() == "scissors":
+        elif bot_choice == 0 and choice.lower() == "scissors":
             await ctx.respond("I chose rock! I win!")
-        elif botchoice == 1 and choice.lower() == "rock":
+        elif bot_choice == 1 and choice.lower() == "rock":
             await ctx.respond("I chose paper!  I win!")
-        elif botchoice == 1 and choice.lower() == "paper":
+        elif bot_choice == 1 and choice.lower() == "paper":
             await ctx.respond("I chose paper! It's a tie!")
-        elif botchoice == 1 and choice.lower() == "scissors":
+        elif bot_choice == 1 and choice.lower() == "scissors":
             await ctx.respond("I chose paper! You win!")
-        elif botchoice == 2 and choice.lower() == "rock":
+        elif bot_choice == 2 and choice.lower() == "rock":
             await ctx.respond("I chose scissors!  You win!")
-        elif botchoice == 2 and choice.lower() == "paper":
+        elif bot_choice == 2 and choice.lower() == "paper":
             await ctx.respond("I chose scissors! I win!")
-        elif botchoice == 2 and choice.lower() == "scissors":
+        elif bot_choice == 2 and choice.lower() == "scissors":
             await ctx.respond("I chose scissors! It's a tie!")
         elif choice.lower() == "gun":
             await ctx.respond(":neutral_face:")
@@ -99,8 +99,8 @@ class Fun(commands.Cog): # THE COG ALL ABOUT HAVING FUN (kinda depracated)
         f"{dead} took the L.",
         f"{killer} handed {dead} the L."]
         i = len(deaths) - 1
-        deathchoice = random.randint(0, i)
-        await ctx.respond(deaths[deathchoice])
+        death_choice = random.randint(0, i)
+        await ctx.respond(deaths[death_choice])
 
 def setup(bot):
     bot.add_cog(Fun(bot))

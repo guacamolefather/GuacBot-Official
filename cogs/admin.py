@@ -1,18 +1,20 @@
-from cogs.extraclasses.jason import * # JSON file handling
-from cogs.extraclasses.avocado import * # The infamous pineapple
-from discord.commands import SlashCommandGroup
-from discord.ext import commands
 import discord, time, requests
 
-botData = FetchBotData()
-serverData = FetchServerData()
+from discord.ext import commands
+
+from helper_classes.data import *
+
+
+jason = Jason()
+#bot_data = jason.fetchBotData()
+#server_data = jason.fetchServerData()
 
 class Admin(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
 
-    admin = SlashCommandGroup("admin", "Zero shower guarantee!")
+    admin = discord.commands.SlashCommandGroup("admin", "Zero shower guarantee!")
 
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ EVENT HANDLERS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
@@ -37,7 +39,7 @@ class Admin(commands.Cog):
     async def steal_emoji(self, ctx, *, emoji):
 
         if not emoji.startswith("<"):
-            await ctx.respond("Just an emoji, pls.", ephemeral=True)
+            await ctx.respond("Just a custom emoji, pls.", ephemeral=True)
             return
         
         try:
@@ -58,7 +60,7 @@ class Admin(commands.Cog):
             
         except Exception as e:
             if not isinstance(e, discord.Forbidden):
-                await ctx.respond(f"Just an emoji, pls.", ephemeral=True)
+                await ctx.respond(f"Just a custom emoji, pls.", ephemeral=True)
             else:
                 await ctx.respond(f"I don't have permission to do that...", ephemeral=True)
 
@@ -66,8 +68,8 @@ class Admin(commands.Cog):
     @admin.command(description="Returns server data on the user.") # Slash command for returning server data on the user
     @discord.guild_only() # Only works in guilds
     async def profile(self, ctx, member: discord.Member):
-        botData = FetchBotData()
-        serverData = FetchServerData()
+        bot_data = jason.fetchBotData()
+        server_data = jason.fetchServerData()
         
         embed = discord.Embed(title=str(member), description="Member data:", colour=member.top_role.color, url="https://github.com/guacamolefather?tab=repositories")
         embed.set_thumbnail(url=member.avatar.url)
@@ -96,30 +98,30 @@ class Admin(commands.Cog):
         embed.add_field(name="Role(s):",value=fancy_roles_list, inline=False)
         
         # How many channels member has access to:
-        hasCounter = 0
-        isCounter = 0
+        has_counter = 0
+        is_counter = 0
         for channel in ctx.guild.text_channels:
-            isCounter = isCounter + 1
+            is_counter += 1
             if (channel.permissions_for(member).read_messages):
-                hasCounter = hasCounter + 1
-        embed.add_field(name="Channels:",value=f"Has access to {hasCounter} out of {isCounter} channels.",inline=False)
+                has_counter += 1
+        embed.add_field(name="Channels:",value=f"Has access to {has_counter} out of {is_counter} channels.",inline=False)
         
         # Reaction ban status:
-        isBanned = False
+        is_banned = False
         how = "isn't"
-        if (member.id in serverData[str(ctx.guild.id)]["Reactions"]["blacklist"]):
+        if (member.id in server_data[str(ctx.guild.id)]["reaction_cog"]["blacklist"]):
             isBanned = True
             how = "individually, by an admin."
-        for banned in serverData[str(ctx.guild.id)]["Reactions"]["roleblacklist"]:
+        for banned in server_data[str(ctx.guild.id)]["reaction_cog"]["role_blacklist"]:
             for role in member.roles:
                 if (role.id == banned):
-                    isBanned = True
+                    is_banned = True
                     how = "via a role."
-        if (str(member.id) in botData["Reactions"]["global_blacklist"].keys()):
-            isBanned = True
+        if (str(member.id) in bot_data["reaction_cog"]["global_blacklist"].keys()):
+            is_banned = True
             how = "globally, by my dad."
             
-        if (isBanned):
+        if (is_banned):
             embed.add_field(name="Reactions status:",value=f"Banned {how}",inline=False)
         else:
             embed.add_field(name="Reactions status:",value="Available! Feel free to talk to me (GuacBot) :)",inline=False)
@@ -131,8 +133,8 @@ class Admin(commands.Cog):
     @discord.default_permissions(manage_roles=True) # Only full admins can use this command
     @discord.guild_only() # Only works in guilds
     async def role_count(self, ctx):
-        withrole = 0
-        memberswithrole = ""
+        with_role = 0
+        members_with_role = ""
         fields = 1
 
         icon_url = ctx.guild.icon.url
@@ -142,14 +144,14 @@ class Admin(commands.Cog):
         for role in ctx.guild.roles:
             for member in ctx.guild.members:
                 if role in member.roles:
-                    withrole += 1
-                    memberswithrole += " - " + member.display_name
-            print(len(memberswithrole))
+                    with_role += 1
+                    members_with_role += " - " + member.display_name
+            print(len(members_with_role))
             fields += 1
             
-            embed.add_field(name=f"{role} - created on {role.created_at.strftime('%d/%m/%Y at %H:%M:%S')}:",value=str(withrole) + ": (" + memberswithrole + ")", inline=False)
-            withrole = 0
-            memberswithrole = ""
+            embed.add_field(name=f"{role} - created on {role.created_at.strftime('%d/%m/%Y at %H:%M:%S')}:", value=f"{with_role}: ({members_with_role})", inline=False)
+            with_role = 0
+            members_with_role = ""
         
         await ctx.respond(embed=embed, ephemeral=True)
 

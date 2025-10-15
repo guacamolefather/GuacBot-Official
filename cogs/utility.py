@@ -1,11 +1,13 @@
-from cogs.extraclasses.jason import * # JSON file handling
-from cogs.extraclasses.avocado import * # The infamous pineapple
-from discord.commands import SlashCommandGroup
-from discord.ext import commands
 import discord
 
-botData = FetchBotData()
-serverData = FetchServerData()
+from discord.commands import SlashCommandGroup
+from discord.ext import commands
+
+from helper_classes.data import *
+
+jason = Jason()
+#bot_data = jason.fetchBotData()
+#server_data = jason.fetchServerData()
 
 class Utility(commands.Cog): # Commands for general utility purposes (usually stats or other info gathering stuff)
 
@@ -52,7 +54,7 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
     @utility.command(description="Shows total + human + online/DND member count.") # Slash command for showing how many members are in the server
     @discord.guild_only()
     async def role_call(self, ctx):
-        notbots = 0
+        not_bots = 0
         online = 0
         icon_url = ctx.guild.icon.url
         embed = discord.Embed(title="Rolecall", description=f"{ctx.guild.member_count} members including me :)")
@@ -61,8 +63,8 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
         # Not bot members
         for member in ctx.guild.members:
             if not member.bot:
-                notbots += 1
-        embed.add_field(name='"Human" Member(s):',value=notbots, inline=False)
+                not_bots += 1
+        embed.add_field(name='"Human" Member(s):',value=not_bots, inline=False)
         
         # Online members
         for member in ctx.guild.members:
@@ -75,8 +77,8 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
     @utility.command(description="Returns server data on the user.") # Slash command for returning server data on the user
     @discord.guild_only()
     async def profile(self, ctx):
-        botData = FetchBotData()
-        serverData = FetchServerData()
+        bot_data = jason.fetchBotData()
+        server_data = jason.fetchServerData()
         
         member = ctx.author
         embed = discord.Embed(title=str(member), description="Member data:", colour=member.top_role.color, url="https://github.com/guacamolefather?tab=repositories")
@@ -106,36 +108,36 @@ class Utility(commands.Cog): # Commands for general utility purposes (usually st
         embed.add_field(name="Role(s):",value=fancy_roles_list, inline=False)
         
         # How many channels member has access to:
-        hasCounter = 0
-        isCounter = 0
+        has_counter = 0
+        is_counter = 0
         for channel in ctx.guild.text_channels:
-            isCounter = isCounter + 1
+            is_counter = is_counter + 1
             if (channel.permissions_for(member).read_messages):
-                hasCounter = hasCounter + 1
-        embed.add_field(name="Channels:",value=f"Has access to {hasCounter} out of {isCounter} channels.",inline=False)
+                has_counter = has_counter + 1
+        embed.add_field(name="Channels:",value=f"Has access to {has_counter} out of {is_counter} channels.",inline=False)
         
         # Reaction ban status:
-        isBanned = False
+        is_banned = False
         how = "isn't"
-        if (member.id in serverData[str(ctx.guild.id)]["Reactions"]["blacklist"]):
-            isBanned = True
+        if (member.id in server_data[str(ctx.guild.id)]["reaction_cog"]["blacklist"]):
+            is_banned = True
             how = "individually, by an admin."
-        for banned in serverData[str(ctx.guild.id)]["Reactions"]["roleblacklist"]:
+        for banned in server_data[str(ctx.guild.id)]["reaction_cog"]["role_blacklist"]:
             for role in member.roles:
                 if (role.id == banned):
-                    isBanned = True
+                    is_banned = True
                     how = "via a role."
-        if (str(member.id) in botData["Reactions"]["global_blacklist"].keys()):
-            isBanned = True
+        if (str(member.id) in bot_data["reaction_cog"]["global_blacklist"].keys()):
+            is_banned = True
             how = "globally, by my dad."
             
-        if (isBanned):
+        if (is_banned):
             embed.add_field(name="Reactions status:",value=f"Banned {how}",inline=False)
         else:
             embed.add_field(name="Reactions status:",value="Available! Feel free to talk to me (GuacBot) :)",inline=False)
 
         # Admin profile notification:
-        embed.add_field(name="Regular profile",value="This is the regular profile command. For the admin command (other user), use /adminprofile (with admin priviledges).", inline=False)
+        embed.add_field(name="Regular profile",value="This is the regular profile command. For the admin version, use /profile from the admin section.", inline=False)
 
         await ctx.respond(embed=embed)
 
